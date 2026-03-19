@@ -16,17 +16,15 @@ Uploading multi-GB files to Hugging Face should work reliably on flaky connectio
 - ✓ Model repo browsing and basic management — Validated in Phase 1: Foundation
 - ✓ Resumable, fault-tolerant uploads for large files — Validated in Phase 2: Upload Engine
 - ✓ Upload progress visibility — Validated in Phase 2: Upload Engine
+- ✓ Upload wizard for guided first-time experience — Validated in Phase 3: Upload UI
+- ✓ Advanced mode with drag-and-queue and folder sync — Validated in Phase 3: Upload UI
+- ✓ Repository CRUD — create, delete repos and files — Validated in Phase 3: Repo Management
+- ✓ Version tracking — commit history, revert, rollback — Validated in Phase 3: Repo Management
 
 ### Active
 
-- [ ] Resumable, fault-tolerant uploads for large files (models and datasets, 1-100+ GB)
-- [ ] Upload progress visibility — per-file progress bars, speed, ETA
-- [ ] Upload wizard for guided first-time experience
-- [ ] Advanced mode with drag-and-queue and folder sync for power users
 - [ ] OAuth browser login
 - [ ] Browse and preview datasets — view rows, check schema
-- [ ] Repository CRUD — create, rename, delete repos and files on HF
-- [ ] Version tracking — commit history, compare versions, rollback
 - [ ] Background uploads with system tray presence
 
 ### Out of Scope
@@ -61,4 +59,4 @@ Uploading multi-GB files to Hugging Face should work reliably on flaky connectio
 | Open source + app store | Community tool, free distribution | — Pending |
 
 ---
-*Last updated: 2026-03-19 after Phase 2: Upload Engine complete*
+*Last updated: 2026-03-19 after Phase 3: Upload UI + Repo Management complete*
