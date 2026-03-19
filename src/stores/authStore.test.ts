@@ -8,6 +8,8 @@ describe('useAuthStore', () => {
       token: null,
       user: null,
       isAuthenticated: false,
+      oauthStatus: 'idle',
+      oauthError: null,
     });
   });
 
@@ -35,5 +37,33 @@ describe('useAuthStore', () => {
     expect(state.isAuthenticated).toBe(false);
     expect(state.token).toBeNull();
     expect(state.user).toBeNull();
+  });
+
+  it('should start with idle oauthStatus', () => {
+    const state = useAuthStore.getState();
+    expect(state.oauthStatus).toBe('idle');
+    expect(state.oauthError).toBeNull();
+  });
+
+  it('setOauthStatus transitions from idle to waiting', () => {
+    const { setOauthStatus } = useAuthStore.getState();
+    setOauthStatus('waiting');
+    expect(useAuthStore.getState().oauthStatus).toBe('waiting');
+    expect(useAuthStore.getState().oauthError).toBeNull();
+  });
+
+  it('setOauthStatus sets error with message', () => {
+    const { setOauthStatus } = useAuthStore.getState();
+    setOauthStatus('error', 'OAuth failed');
+    expect(useAuthStore.getState().oauthStatus).toBe('error');
+    expect(useAuthStore.getState().oauthError).toBe('OAuth failed');
+  });
+
+  it('setOauthStatus resets to idle clears error', () => {
+    const { setOauthStatus } = useAuthStore.getState();
+    setOauthStatus('error', 'some error');
+    setOauthStatus('idle');
+    expect(useAuthStore.getState().oauthStatus).toBe('idle');
+    expect(useAuthStore.getState().oauthError).toBeNull();
   });
 });

@@ -20,3 +20,15 @@ export async function getStoredToken(): Promise<string | null> {
 export async function checkExistingToken(): Promise<string | null> {
   return unwrap(await commands.checkExistingToken());
 }
+
+export async function oauthStart(): Promise<string> {
+  return unwrap(await commands.oauthStart());
+}
+
+export async function oauthExchangeCode(callbackUrl: string): Promise<UserInfo> {
+  return unwrap(await commands.oauthExchangeCode(callbackUrl));
+}
+
+export async function oauthCancel(): Promise<null> {
+  return unwrap(await commands.oauthCancel());
+}
