@@ -12,7 +12,8 @@ Uploading multi-GB files to Hugging Face should work reliably on flaky connectio
 
 ### Validated
 
-(None yet — ship to validate)
+- ✓ HF authentication via token paste — Validated in Phase 1: Foundation
+- ✓ Model repo browsing and basic management — Validated in Phase 1: Foundation
 
 ### Active
 
@@ -20,11 +21,10 @@ Uploading multi-GB files to Hugging Face should work reliably on flaky connectio
 - [ ] Upload progress visibility — per-file progress bars, speed, ETA
 - [ ] Upload wizard for guided first-time experience
 - [ ] Advanced mode with drag-and-queue and folder sync for power users
-- [ ] HF authentication via token paste and OAuth browser login
+- [ ] OAuth browser login
 - [ ] Browse and preview datasets — view rows, check schema
 - [ ] Repository CRUD — create, rename, delete repos and files on HF
 - [ ] Version tracking — commit history, compare versions, rollback
-- [ ] Model repo browsing and basic management for convenience
 - [ ] Background uploads with system tray presence
 
 ### Out of Scope
@@ -59,4 +59,4 @@ Uploading multi-GB files to Hugging Face should work reliably on flaky connectio
 | Open source + app store | Community tool, free distribution | — Pending |
 
 ---
-*Last updated: 2026-03-19 after initialization*
+*Last updated: 2026-03-19 after Phase 1: Foundation complete*
