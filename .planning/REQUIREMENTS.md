@@ -34,7 +34,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **REPO-03**: User can browse files within a repo
 - [x] **REPO-04**: User can delete files and repos
 - [x] **REPO-05**: User can view commit history for a repo
-- [ ] **REPO-06**: User can compare versions and rollback to previous commits
+- [x] **REPO-06**: User can compare versions and rollback to previous commits
 
 ### Dataset Preview
 
@@ -98,7 +98,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | REPO-03 | Phase 3 | Complete |
 | REPO-04 | Phase 3 | Complete |
 | REPO-05 | Phase 3 | Complete |
-| REPO-06 | Phase 3 | Pending |
+| REPO-06 | Phase 3 | Complete |
 | DATA-01 | Phase 4 | Pending |
 | DATA-02 | Phase 4 | Pending |
 | DATA-03 | Phase 4 | Pending |

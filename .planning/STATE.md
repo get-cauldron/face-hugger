@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Completed 03-02-PLAN.md
-last_updated: "2026-03-19T18:12:28.438Z"
+stopped_at: Completed 03-05-PLAN.md
+last_updated: "2026-03-19T18:19:06.934Z"
 progress:
   total_phases: 5
   completed_phases: 2
   total_plans: 13
-  completed_plans: 10
+  completed_plans: 12
 ---
 
 # Project State
@@ -56,6 +56,7 @@ Plan: 2 of 5
 | Phase 02-upload-engine P05 | 3min | 2 tasks | 8 files |
 | Phase 03-upload-ui P01 | 5min | 3 tasks | 20 files |
 | Phase 03-upload-ui-repo-management P02 | 6min | 2 tasks | 9 files |
+| Phase 03-upload-ui-repo-management P05 | 8min | 2 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -102,6 +103,8 @@ Recent decisions affecting current work:
 - [Phase 03-upload-ui P01]: src/lib/utils.ts with cn() (clsx + tailwind-merge) required by all shadcn components importing from "@/lib/utils"
 - [Phase 03-upload-ui-repo-management]: CreateRepoSheet owned by StepRepoPicker (not UploadWizard) — step encapsulates its own sheet state
 - [Phase 03-upload-ui-repo-management]: handleRepoCreated constructs synthetic RepoItem for immediate auto-selection without waiting for React Query refetch
+- [Phase 03-upload-ui-repo-management]: Server-side URL resolution for revert operations: pass HF CDN URL as content to hub commit() — no large file downloads client-side
+- [Phase 03-upload-ui-repo-management]: Restore uses same squash-forward commit logic as Revert; destructive appearance via red button + typed-name confirmation gate
 
 ### Pending Todos
 
@@ -115,6 +118,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-19T18:12:28.436Z
-Stopped at: Completed 03-02-PLAN.md
+Last session: 2026-03-19T18:18:56.454Z
+Stopped at: Completed 03-05-PLAN.md
 Resume file: None
