@@ -14,6 +14,8 @@ Uploading multi-GB files to Hugging Face should work reliably on flaky connectio
 
 - ✓ HF authentication via token paste — Validated in Phase 1: Foundation
 - ✓ Model repo browsing and basic management — Validated in Phase 1: Foundation
+- ✓ Resumable, fault-tolerant uploads for large files — Validated in Phase 2: Upload Engine
+- ✓ Upload progress visibility — Validated in Phase 2: Upload Engine
 
 ### Active
 
@@ -59,4 +61,4 @@ Uploading multi-GB files to Hugging Face should work reliably on flaky connectio
 | Open source + app store | Community tool, free distribution | — Pending |
 
 ---
-*Last updated: 2026-03-19 after Phase 1: Foundation complete*
+*Last updated: 2026-03-19 after Phase 2: Upload Engine complete*
