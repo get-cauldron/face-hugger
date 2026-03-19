@@ -2,9 +2,9 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: unknown
-stopped_at: "Checkpoint: Task 2 human-verify - 01-03-PLAN.md"
-last_updated: "2026-03-19T15:20:34.907Z"
+status: in-progress
+stopped_at: "Completed 01-03-PLAN.md"
+last_updated: "2026-03-19T16:00:00Z"
 progress:
   total_phases: 5
   completed_phases: 1
@@ -23,8 +23,8 @@ See: .planning/PROJECT.md (updated 2026-03-19)
 
 ## Current Position
 
-Phase: 01 (foundation) — EXECUTING
-Plan: 2 of 3
+Phase: 01 (foundation) — COMPLETE
+Plan: 3 of 3 (all plans complete)
 
 ## Performance Metrics
 
@@ -48,7 +48,7 @@ Plan: 2 of 3
 *Updated after each plan completion*
 | Phase 01-foundation P01 | 16min | 3 tasks | 22 files |
 | Phase 01-foundation P02 | 7min | 3 tasks | 16 files |
-| Phase 01-foundation P03 | 20 | 2 tasks | 13 files |
+| Phase 01-foundation P03 | 45min | 3 tasks | 13 files |
 
 ## Accumulated Context
 
@@ -73,6 +73,10 @@ Recent decisions affecting current work:
 - [Phase 01-foundation]: Section-based routing in AppShell via local state — no React Router needed for 3-4 view desktop app
 - [Phase 01-foundation]: additionalFields: ['tags'] only in listModels/listDatasets — private/downloads/likes/lastModified are already in base ModelEntry
 - [Phase 01-foundation]: Use openUrl() from @tauri-apps/plugin-opener (not open())
+- [Phase 01-foundation]: tauri-controls replaced with custom titlebar — package incompatible with React 19
+- [Phase 01-foundation]: model.name used directly from @huggingface/hub (not parsed from id) — avoids hash display bug
+- [Phase 01-foundation]: tauri-specta Result<T,E> must be unwrapped (.data) before returning to JS callers
+- [Phase 01-foundation]: Tailwind v4 var() arbitrary values do not resolve — use semantic utility classes instead
 
 ### Pending Todos
 
@@ -86,6 +90,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-19T15:20:34.905Z
-Stopped at: Checkpoint: Task 2 human-verify - 01-03-PLAN.md
+Last session: 2026-03-19T16:00:00Z
+Stopped at: Completed 01-03-PLAN.md — Phase 01 foundation complete
 Resume file: None

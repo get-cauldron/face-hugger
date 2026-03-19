@@ -36,17 +36,27 @@ decisions:
   - "Use updatedAt (Date) from ModelEntry rather than lastModified string — convert to ISO on collection"
   - "openUrl() from @tauri-apps/plugin-opener, not open() — per actual plugin export"
   - "Install @testing-library/dom as dev dependency — required peer for @testing-library/react waitFor"
+key-decisions:
+  - "Use additionalFields: ['tags'] only — private/downloads/likes/lastModified already in base ModelEntry/DatasetEntry"
+  - "openUrl() from @tauri-apps/plugin-opener, not open() — per actual plugin export"
+  - "tauri-controls replaced with custom titlebar — incompatible with React 19"
+  - "model.name used directly from @huggingface/hub instead of splitting id — avoids hash display bug"
+  - "Result<T,E> objects from tauri-specta unwrapped before returning to JS — validated at auth command layer"
+  - "Tailwind v4 var() arbitrary values replaced with semantic utility classes throughout"
+
+requirements-completed: [REPO-01]
+
 metrics:
-  duration: "~20min"
+  duration: "~45min"
   completed_date: "2026-03-19"
-  tasks_completed: 2
+  tasks_completed: 3
   files_created: 10
   files_modified: 3
 ---
 
 # Phase 01 Plan 03: Repo Listing Feature Summary
 
-**One-liner:** TanStack Query hooks for HF models/datasets with card/table views, client-side search/filter/sort, tauri-plugin-store preference persistence, and recent repos in sidebar.
+**TanStack Query hooks for HF models/datasets with card/table views, client-side search/filter/sort, tauri-plugin-store preference persistence, recent repos in sidebar, and four bugs fixed during human verification**
 
 ## What Was Built
 
@@ -112,9 +122,49 @@ metrics:
 
 `npm run build` passes — 1818 modules transformed, no errors.
 
-## Checkpoint Pending
+## Verification Outcome (Task 2 — Checkpoint Approved)
 
-**Task 2** (human-verify) requires manual end-to-end verification with a real HF token. The app builds successfully and is ready to run with `npm run tauri dev`.
+User ran the full end-to-end verification with a real HF token. Four bugs were found and fixed in commit `dbc191e`:
+
+### Bugs Fixed During Verification
+
+**5. [Rule 1 - Bug] Replaced tauri-controls with custom titlebar (React 19 incompatibility)**
+- **Found during:** Task 2 (human verification — app crashed on launch)
+- **Issue:** `tauri-controls` npm package incompatible with React 19 — caused crash on startup
+- **Fix:** Removed `tauri-controls`; implemented custom titlebar component using Tauri v2 window APIs directly
+- **Files modified:** `src/components/shell/AppShell.tsx`
+- **Committed in:** dbc191e
+
+**6. [Rule 1 - Bug] Fixed tauri-specta Result<T,E> unwrapping in auth commands**
+- **Found during:** Task 2 (human verification — login failed silently)
+- **Issue:** tauri-specta wraps return values in `{ status: "ok", data: T }` objects; calling code was treating the wrapper as the value, so token validation never surfaced user info
+- **Fix:** Added `.data` unwrapping at the command wrapper layer for `validate_token` and `get_stored_token`
+- **Files modified:** Command binding/wrapper layer
+- **Committed in:** dbc191e
+
+**7. [Rule 1 - Bug] Fixed Tailwind v4 var() arbitrary values not resolving**
+- **Found during:** Task 2 (human verification — theme colors not applying)
+- **Issue:** Tailwind v4 changed CSS custom property arbitrary value resolution; `bg-[var(--color-primary)]` classes were not applying
+- **Fix:** Replaced `var()` arbitrary values with semantic utility classes (`bg-primary`, `text-foreground`, etc.) throughout affected components
+- **Files modified:** Multiple component files
+- **Committed in:** dbc191e
+
+**8. [Rule 1 - Bug] Fixed repo names displaying as hashes**
+- **Found during:** Task 2 (human verification — model names showed as hash strings)
+- **Issue:** Splitting `model.id` on `/` produced incorrect results for some repo ID formats; @huggingface/hub exposes `model.name` directly
+- **Fix:** Switched to `model.name` directly from API response
+- **Files modified:** `src/queries/useRepos.ts`
+- **Committed in:** dbc191e
+
+**Checkpoint approved** — User confirmed the full Phase 1 experience works. Design feedback will come later but the plan is approved.
+
+## Task Commits
+
+1. **Task 1a: TanStack Query hooks, preference persistence, base display components** — `b435664`
+2. **Task 1b: Page routes, toolbar, AppShell wiring, recent repos** — `be7f8f0`
+3. **Task 2: Human verification + bug fixes** — `dbc191e`
+
+**Plan metadata (pre-checkpoint):** `0e876ef`
 
 ## Self-Check: PASSED
 
@@ -135,3 +185,14 @@ Key files verified present:
 Commits verified:
 - b435664: feat(01-03): TanStack Query hooks, preference persistence, repo display components
 - be7f8f0: feat(01-03): page routes, toolbar, AppShell wiring, recent repos in sidebar
+- dbc191e: fix(01-03): fix tauri-controls React 19 crash, Result unwrapping, Tailwind v4 theme classes, and repo name display
+
+## Next Phase Readiness
+
+- Full Phase 1 foundation complete: auth, AppShell, repo listing, preferences, navigation
+- Phase 2 (upload) can begin; auth store and HF token are available for upload commands
+- Xet CAS upload protocol documentation gap remains a known blocker for Phase 2 planning (noted in STATE.md)
+
+---
+*Phase: 01-foundation*
+*Completed: 2026-03-19*
