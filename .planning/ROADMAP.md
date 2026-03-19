@@ -85,7 +85,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation | 3/3 | Complete   | 2026-03-19 |
-| 2. Upload Engine | 1/5 | In Progress|  |
+| 2. Upload Engine | 2/5 | In Progress|  |
 | 3. Upload UI + Repo Management | 0/TBD | Not started | - |
 | 4. Secondary Features + Distribution | 0/TBD | Not started | - |
 
@@ -94,7 +94,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 **Goal:** [To be planned]
 **Requirements**: TBD
 **Depends on:** Phase 4
-**Plans:** 1/5 plans executed
+**Plans:** 2/5 plans executed
 
 Plans:
 - [ ] TBD (run /gsd:plan-phase 5 to break down)

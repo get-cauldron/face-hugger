@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Completed 02-upload-engine-01-PLAN.md
-last_updated: "2026-03-19T16:53:24.549Z"
+stopped_at: Completed 02-upload-engine-03-PLAN.md
+last_updated: "2026-03-19T16:57:37.139Z"
 progress:
   total_phases: 5
   completed_phases: 1
   total_plans: 8
-  completed_plans: 4
+  completed_plans: 5
 ---
 
 # Project State
@@ -24,7 +24,7 @@ See: .planning/PROJECT.md (updated 2026-03-19)
 ## Current Position
 
 Phase: 02 (upload-engine) — EXECUTING
-Plan: 2 of 5
+Plan: 3 of 5
 
 ## Performance Metrics
 
@@ -50,6 +50,7 @@ Plan: 2 of 5
 | Phase 01-foundation P02 | 7min | 3 tasks | 16 files |
 | Phase 01-foundation P03 | 45min | 3 tasks | 13 files |
 | Phase 02-upload-engine P01 | 3 | 2 tasks | 7 files |
+| Phase 02-upload-engine P03 | 3min | 2 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -81,6 +82,8 @@ Recent decisions affecting current work:
 - [Phase 02-upload-engine]: AppState::new(db) constructor replaces Default — SqlitePool has no Default impl
 - [Phase 02-upload-engine]: In-memory test pools require max_connections(1) to share single SQLite DB
 - [Phase 02-upload-engine]: DB initialization runs in tauri::async_runtime::spawn in setup hook; tauri::Manager trait must be explicitly imported
+- [Phase 02-upload-engine]: Pause reuses CancellationToken cancel() signal; worker reads DB state post-cancellation to distinguish pause vs cancel
+- [Phase 02-upload-engine]: set_max_concurrent decrease replaces semaphore entirely; active uploads hold permits from old semaphore and finish naturally
 
 ### Pending Todos
 
@@ -94,6 +97,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-19T16:53:24.547Z
-Stopped at: Completed 02-upload-engine-01-PLAN.md
+Last session: 2026-03-19T16:57:37.137Z
+Stopped at: Completed 02-upload-engine-03-PLAN.md
 Resume file: None

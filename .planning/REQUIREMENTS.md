@@ -20,7 +20,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [ ] **UPLD-02**: Uploads resume automatically after network interruption
 - [ ] **UPLD-03**: User sees per-file progress bar with speed and ETA
 - [x] **UPLD-04**: User can queue multiple uploads
-- [ ] **UPLD-05**: User can cancel, pause, and resume individual uploads
+- [x] **UPLD-05**: User can cancel, pause, and resume individual uploads
 - [ ] **UPLD-06**: Upload wizard guides first-time users through repo selection, file selection, and upload
 - [ ] **UPLD-07**: Advanced mode supports drag-and-queue file uploads
 - [ ] **UPLD-08**: Advanced mode supports folder sync to HF repo
@@ -87,7 +87,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | UPLD-02 | Phase 2 | Pending |
 | UPLD-03 | Phase 2 | Pending |
 | UPLD-04 | Phase 2 | Complete |
-| UPLD-05 | Phase 2 | Pending |
+| UPLD-05 | Phase 2 | Complete |
 | UPLD-06 | Phase 3 | Pending |
 | UPLD-07 | Phase 3 | Pending |
 | UPLD-08 | Phase 3 | Pending |
