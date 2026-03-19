@@ -8,7 +8,7 @@ import RepoEmptyState from '../../components/repos/RepoEmptyState';
 
 function SkeletonCard() {
   return (
-    <div className="bg-[var(--color-card)] border border-[var(--color-border)] rounded-xl p-4 animate-pulse h-40" />
+    <div className="bg-card border border-border rounded-xl p-4 animate-pulse h-40" />
   );
 }
 
@@ -94,7 +94,7 @@ export default function ModelsPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-[var(--color-foreground)] mb-4">Models</h1>
+      <h1 className="text-2xl font-bold text-foreground mb-4">Models</h1>
 
       <RepoListToolbar
         searchQuery={searchQuery}
@@ -118,7 +118,7 @@ export default function ModelsPage() {
 
       {/* Error state */}
       {isError && (
-        <p className="text-[var(--color-destructive)] text-sm">
+        <p className="text-destructive text-sm">
           Failed to load models. Please try again.
         </p>
       )}

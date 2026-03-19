@@ -26,19 +26,19 @@ export default function RepoListToolbar({
   onFilterVisibilityChange,
 }: RepoListToolbarProps) {
   const selectClass =
-    'px-3 py-1.5 text-sm bg-[var(--color-secondary)] border border-[var(--color-border)] rounded-lg text-[var(--color-foreground)] focus:outline-none focus:ring-1 focus:ring-[var(--color-primary)] cursor-pointer';
+    'px-3 py-1.5 text-sm bg-secondary border border-border rounded-lg text-foreground focus:outline-none focus:ring-1 focus:ring-[var(--color-primary)] cursor-pointer';
 
   return (
     <div className="flex items-center gap-3 mb-4 flex-wrap">
       {/* Search input */}
       <div className="relative flex-1 min-w-[200px]">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--color-muted-foreground)]" />
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
         <input
           type="text"
           value={searchQuery}
           onChange={(e) => onSearchChange(e.target.value)}
           placeholder="Search repos..."
-          className="w-full pl-9 pr-4 py-1.5 text-sm bg-[var(--color-secondary)] border border-[var(--color-border)] rounded-lg text-[var(--color-foreground)] placeholder-[var(--color-muted-foreground)] focus:outline-none focus:ring-1 focus:ring-[var(--color-primary)]"
+          className="w-full pl-9 pr-4 py-1.5 text-sm bg-secondary border border-border rounded-lg text-foreground placeholder-[var(--color-muted-foreground)] focus:outline-none focus:ring-1 focus:ring-[var(--color-primary)]"
         />
       </div>
 
@@ -68,13 +68,13 @@ export default function RepoListToolbar({
       </select>
 
       {/* View mode toggle */}
-      <div className="flex items-center gap-1 border border-[var(--color-border)] rounded-lg p-1">
+      <div className="flex items-center gap-1 border border-border rounded-lg p-1">
         <button
           onClick={() => onViewModeChange('grid')}
           className={`p-1.5 rounded-md transition-colors ${
             viewMode === 'grid'
-              ? 'bg-[var(--color-secondary)] text-[var(--color-foreground)]'
-              : 'text-[var(--color-muted-foreground)] hover:text-[var(--color-foreground)]'
+              ? 'bg-secondary text-foreground'
+              : 'text-muted-foreground hover:text-foreground'
           }`}
           aria-label="Grid view"
           title="Grid view"
@@ -85,8 +85,8 @@ export default function RepoListToolbar({
           onClick={() => onViewModeChange('table')}
           className={`p-1.5 rounded-md transition-colors ${
             viewMode === 'table'
-              ? 'bg-[var(--color-secondary)] text-[var(--color-foreground)]'
-              : 'text-[var(--color-muted-foreground)] hover:text-[var(--color-foreground)]'
+              ? 'bg-secondary text-foreground'
+              : 'text-muted-foreground hover:text-foreground'
           }`}
           aria-label="List view"
           title="List view"

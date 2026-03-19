@@ -25,11 +25,10 @@ export function useModels() {
         accessToken: token!,
         additionalFields: ['tags'],
       })) {
-        const [owner, ...nameParts] = model.id.split('/');
         models.push({
           id: model.id,
-          name: nameParts.join('/'),
-          owner,
+          name: model.name,
+          owner: model.id.includes('/') ? model.id.split('/')[0] : user!.name,
           private: model.private ?? false,
           downloads: model.downloads ?? 0,
           lastModified: model.updatedAt ? model.updatedAt.toISOString() : '',
@@ -56,11 +55,10 @@ export function useDatasets() {
         accessToken: token!,
         additionalFields: ['tags'],
       })) {
-        const [owner, ...nameParts] = dataset.id.split('/');
         datasets.push({
           id: dataset.id,
-          name: nameParts.join('/'),
-          owner,
+          name: dataset.name,
+          owner: dataset.id.includes('/') ? dataset.id.split('/')[0] : user!.name,
           private: dataset.private ?? false,
           downloads: dataset.downloads ?? 0,
           lastModified: dataset.updatedAt ? dataset.updatedAt.toISOString() : '',

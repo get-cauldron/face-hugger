@@ -29,18 +29,18 @@ export default function RepoCard({ repo, onClick }: RepoCardProps) {
 
   return (
     <div
-      className="bg-[var(--color-card)] border border-[var(--color-border)] rounded-xl p-4 hover:border-[var(--color-primary)]/50 transition-colors cursor-pointer min-h-[10rem] flex flex-col gap-2"
+      className="bg-card border border-border rounded-xl p-4 hover:border-primary/50 transition-colors cursor-pointer min-h-[10rem] flex flex-col gap-2"
       onClick={() => onClick?.(repo)}
     >
       {/* Top row: repo name + type badge */}
       <div className="flex items-start justify-between gap-2">
-        <span className="font-medium text-[var(--color-foreground)] text-sm leading-tight break-all">
-          {repo.name}
+        <span className="font-medium text-foreground text-sm leading-tight break-all">
+          {repo.name || repo.id}
         </span>
         <span
           className={`text-xs px-2 py-0.5 rounded-full flex-shrink-0 ${
             repo.type === 'model'
-              ? 'bg-[var(--color-primary)]/20 text-[var(--color-primary)]'
+              ? 'bg-primary/20 text-primary'
               : 'bg-blue-500/20 text-blue-400'
           }`}
         >
@@ -62,7 +62,7 @@ export default function RepoCard({ repo, onClick }: RepoCardProps) {
       </div>
 
       {/* Stats row */}
-      <div className="flex items-center gap-3 text-xs text-[var(--color-muted-foreground)]">
+      <div className="flex items-center gap-3 text-xs text-muted-foreground">
         <span className="flex items-center gap-1">
           <Download className="w-3 h-3" />
           {repo.downloads.toLocaleString()}
@@ -80,13 +80,13 @@ export default function RepoCard({ repo, onClick }: RepoCardProps) {
           {visibleTags.map((tag) => (
             <span
               key={tag}
-              className="bg-[var(--color-secondary)] text-[var(--color-secondary-foreground)] text-xs px-2 py-0.5 rounded-full"
+              className="bg-secondary text-secondary-foreground text-xs px-2 py-0.5 rounded-full"
             >
               {tag}
             </span>
           ))}
           {extraTags > 0 && (
-            <span className="text-xs text-[var(--color-muted-foreground)] px-1 py-0.5">
+            <span className="text-xs text-muted-foreground px-1 py-0.5">
               +{extraTags} more
             </span>
           )}

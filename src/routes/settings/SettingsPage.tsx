@@ -15,39 +15,39 @@ export default function SettingsPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-[var(--color-foreground)] mb-6">Settings</h1>
+      <h1 className="text-2xl font-bold text-foreground mb-6">Settings</h1>
 
       {/* User info section */}
       <section className="mb-8">
-        <h2 className="text-sm font-medium text-[var(--color-muted-foreground)] uppercase tracking-wider mb-3">
+        <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider mb-3">
           Account
         </h2>
-        <div className="bg-[var(--color-card)] border border-[var(--color-border)] rounded-xl p-5">
+        <div className="bg-card border border-border rounded-xl p-5">
           <div className="flex items-center gap-4 mb-4">
             {user?.avatar_url ? (
               <img
                 src={user.avatar_url}
                 alt={user.name}
-                className="w-12 h-12 rounded-full border border-[var(--color-border)]"
+                className="w-12 h-12 rounded-full border border-border"
               />
             ) : (
-              <div className="w-12 h-12 rounded-full bg-[var(--color-secondary)] flex items-center justify-center text-lg font-bold text-[var(--color-foreground)]">
+              <div className="w-12 h-12 rounded-full bg-secondary flex items-center justify-center text-lg font-bold text-foreground">
                 {user?.name?.[0]?.toUpperCase() ?? '?'}
               </div>
             )}
             <div>
-              <p className="font-medium text-[var(--color-foreground)]">{user?.name ?? 'Unknown'}</p>
+              <p className="font-medium text-foreground">{user?.name ?? 'Unknown'}</p>
               {user?.fullname && (
-                <p className="text-sm text-[var(--color-muted-foreground)]">{user.fullname}</p>
+                <p className="text-sm text-muted-foreground">{user.fullname}</p>
               )}
               {user?.email && (
-                <p className="text-sm text-[var(--color-muted-foreground)]">{user.email}</p>
+                <p className="text-sm text-muted-foreground">{user.email}</p>
               )}
             </div>
           </div>
 
-          <div className="border-t border-[var(--color-border)] pt-4">
-            <p className="text-sm text-[var(--color-muted-foreground)]">
+          <div className="border-t border-border pt-4">
+            <p className="text-sm text-muted-foreground">
               Token stored securely in OS keychain (macOS Keychain / Windows Credential Manager / Linux Secret Service)
             </p>
           </div>
@@ -56,11 +56,11 @@ export default function SettingsPage() {
 
       {/* Theme section */}
       <section className="mb-8">
-        <h2 className="text-sm font-medium text-[var(--color-muted-foreground)] uppercase tracking-wider mb-3">
+        <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider mb-3">
           Appearance
         </h2>
-        <div className="bg-[var(--color-card)] border border-[var(--color-border)] rounded-xl p-5">
-          <p className="text-sm text-[var(--color-muted-foreground)]">
+        <div className="bg-card border border-border rounded-xl p-5">
+          <p className="text-sm text-muted-foreground">
             Light mode coming soon
           </p>
         </div>
@@ -68,16 +68,16 @@ export default function SettingsPage() {
 
       {/* Logout section */}
       <section>
-        <h2 className="text-sm font-medium text-[var(--color-muted-foreground)] uppercase tracking-wider mb-3">
+        <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider mb-3">
           Session
         </h2>
-        <div className="bg-[var(--color-card)] border border-[var(--color-border)] rounded-xl p-5">
-          <p className="text-sm text-[var(--color-muted-foreground)] mb-4">
+        <div className="bg-card border border-border rounded-xl p-5">
+          <p className="text-sm text-muted-foreground mb-4">
             Sign out and remove your token from the OS keychain.
           </p>
           <button
             onClick={handleLogout}
-            className="px-4 py-2 bg-[var(--color-destructive)] text-[var(--color-destructive-foreground)] rounded-lg text-sm font-medium hover:opacity-90 transition-opacity"
+            className="px-4 py-2 bg-destructive text-destructive-foreground rounded-lg text-sm font-medium hover:opacity-90 transition-opacity"
           >
             Sign out
           </button>

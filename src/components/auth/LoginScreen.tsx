@@ -47,8 +47,8 @@ export default function LoginScreen() {
   // Success flash state
   if (successUser) {
     return (
-      <div className="flex items-center justify-center h-screen bg-[var(--color-background)]">
-        <div className="max-w-md w-full mx-auto p-8 bg-[var(--color-card)] rounded-2xl border border-[var(--color-border)] shadow-xl flex flex-col items-center gap-4">
+      <div className="flex items-center justify-center h-screen bg-background">
+        <div className="max-w-md w-full mx-auto p-8 bg-card rounded-2xl border border-border shadow-xl flex flex-col items-center gap-4">
           <CheckCircle className="w-16 h-16 text-green-500" />
           {successUser.avatar_url && (
             <img
@@ -58,10 +58,10 @@ export default function LoginScreen() {
             />
           )}
           <div className="text-center">
-            <p className="text-lg font-semibold text-[var(--color-foreground)]">
+            <p className="text-lg font-semibold text-foreground">
               Welcome, {successUser.name}!
             </p>
-            <p className="text-sm text-[var(--color-muted-foreground)]">Signing you in...</p>
+            <p className="text-sm text-muted-foreground">Signing you in...</p>
           </div>
         </div>
       </div>
@@ -69,8 +69,8 @@ export default function LoginScreen() {
   }
 
   return (
-    <div className="flex items-center justify-center h-screen bg-[var(--color-background)]">
-      <div className="max-w-md w-full mx-auto p-8 bg-[var(--color-card)] rounded-2xl border border-[var(--color-border)] shadow-xl">
+    <div className="flex items-center justify-center h-screen bg-background">
+      <div className="max-w-md w-full mx-auto p-8 bg-card rounded-2xl border border-border shadow-xl">
         {/* Icon */}
         <img
           src="/icon.png"
@@ -82,12 +82,12 @@ export default function LoginScreen() {
         />
 
         {/* Heading */}
-        <h1 className="text-2xl font-bold text-center text-[var(--color-foreground)] mb-2">
+        <h1 className="text-2xl font-bold text-center text-foreground mb-2">
           Welcome to Face Hugger
         </h1>
 
         {/* Subtitle */}
-        <p className="text-[var(--color-muted-foreground)] text-center mb-6">
+        <p className="text-muted-foreground text-center mb-6">
           Paste your Hugging Face access token to get started
         </p>
 
@@ -100,29 +100,29 @@ export default function LoginScreen() {
               value={tokenInput}
               onChange={(e) => setTokenInput(e.target.value)}
               disabled={isValidating}
-              className="w-full px-4 py-2 rounded-lg border border-[var(--color-border)] bg-[var(--color-input)] text-[var(--color-foreground)] placeholder-[var(--color-muted-foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--color-ring)] disabled:opacity-50 transition-colors"
+              className="w-full px-4 py-2 rounded-lg border border-border bg-input text-foreground placeholder-[var(--color-muted-foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--color-ring)] disabled:opacity-50 transition-colors"
             />
             {errorMessage && (
-              <p className="text-[var(--color-destructive)] text-sm mt-2">{errorMessage}</p>
+              <p className="text-destructive text-sm mt-2">{errorMessage}</p>
             )}
           </div>
 
           <button
             type="submit"
             disabled={isValidating || !tokenInput.trim()}
-            className="w-full py-2 px-4 rounded-lg bg-[var(--color-primary)] text-[var(--color-primary-foreground)] font-medium hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
+            className="w-full py-2 px-4 rounded-lg bg-primary text-primary-foreground font-medium hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
           >
             {isValidating ? 'Signing in...' : 'Sign in'}
           </button>
         </form>
 
         {/* Link to get token */}
-        <p className="text-center text-sm text-[var(--color-muted-foreground)] mt-4">
+        <p className="text-center text-sm text-muted-foreground mt-4">
           Don&apos;t have a token?{' '}
           <button
             type="button"
             onClick={handleOpenTokenPage}
-            className="text-[var(--color-primary)] hover:underline"
+            className="text-primary hover:underline"
           >
             Get one here
           </button>

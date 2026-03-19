@@ -11,13 +11,13 @@ interface SidebarProps {
 type Section = 'models' | 'datasets' | 'settings';
 
 const navItemBase =
-  'flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-[var(--color-sidebar-foreground)] hover:bg-[var(--color-secondary)] mx-2 cursor-pointer transition-colors';
+  'flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-sidebar-foreground hover:bg-secondary mx-2 cursor-pointer transition-colors';
 
 const navItemActive =
-  'bg-[var(--color-secondary)] text-[var(--color-foreground)] font-medium';
+  'bg-secondary text-foreground font-medium';
 
 const sectionHeader =
-  'text-xs uppercase tracking-wider text-[var(--color-muted-foreground)] px-3 pt-4 pb-1';
+  'text-xs uppercase tracking-wider text-muted-foreground px-3 pt-4 pb-1';
 
 export default function Sidebar({ activeSection: activeSectionProp, onSectionChange }: SidebarProps) {
   const [activeSection, setActiveSection] = useState<Section>(
@@ -58,7 +58,7 @@ export default function Sidebar({ activeSection: activeSectionProp, onSectionCha
   }
 
   return (
-    <aside className="w-60 flex flex-col h-[calc(100vh-40px)] bg-[var(--color-sidebar)] border-r border-[var(--color-sidebar-border)]">
+    <aside className="w-60 flex flex-col h-[calc(100vh-40px)] bg-sidebar border-r border-sidebar-border">
       <nav className="flex-1 overflow-y-auto py-2">
         {/* Upload section — disabled placeholder */}
         <div>
@@ -69,7 +69,7 @@ export default function Sidebar({ activeSection: activeSectionProp, onSectionCha
           >
             <UploadCloud className="w-4 h-4 flex-shrink-0" />
             <span>Upload</span>
-            <span className="text-xs ml-auto text-[var(--color-muted-foreground)]">Coming soon</span>
+            <span className="text-xs ml-auto text-muted-foreground">Coming soon</span>
           </div>
         </div>
 
@@ -87,7 +87,7 @@ export default function Sidebar({ activeSection: activeSectionProp, onSectionCha
           {recentModels.slice(0, 5).map((repoId) => (
             <div
               key={repoId}
-              className="text-xs text-[var(--color-muted-foreground)] pl-8 py-1 hover:text-[var(--color-foreground)] cursor-pointer truncate mx-2 rounded"
+              className="text-xs text-muted-foreground pl-8 py-1 hover:text-foreground cursor-pointer truncate mx-2 rounded"
               title={repoId}
             >
               {shortName(repoId)}
@@ -109,7 +109,7 @@ export default function Sidebar({ activeSection: activeSectionProp, onSectionCha
           {recentDatasets.slice(0, 5).map((repoId) => (
             <div
               key={repoId}
-              className="text-xs text-[var(--color-muted-foreground)] pl-8 py-1 hover:text-[var(--color-foreground)] cursor-pointer truncate mx-2 rounded"
+              className="text-xs text-muted-foreground pl-8 py-1 hover:text-foreground cursor-pointer truncate mx-2 rounded"
               title={repoId}
             >
               {shortName(repoId)}
@@ -131,7 +131,7 @@ export default function Sidebar({ activeSection: activeSectionProp, onSectionCha
       </nav>
 
       {/* User badge at bottom */}
-      <div className="border-t border-[var(--color-sidebar-border)] p-2">
+      <div className="border-t border-sidebar-border p-2">
         <UserBadge />
       </div>
     </aside>

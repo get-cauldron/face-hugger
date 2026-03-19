@@ -17,7 +17,7 @@ export default function UserBadge() {
   return (
     <button
       onClick={handleLogout}
-      className="flex items-center gap-2 p-3 hover:bg-[var(--color-secondary)] rounded-lg w-full transition-colors"
+      className="flex items-center gap-2 p-3 hover:bg-secondary rounded-lg w-full transition-colors"
       title="Click to log out"
     >
       {user?.avatar_url ? (
@@ -27,11 +27,11 @@ export default function UserBadge() {
           className="w-8 h-8 rounded-full object-cover flex-shrink-0"
         />
       ) : (
-        <div className="w-8 h-8 rounded-full bg-[var(--color-secondary)] flex items-center justify-center flex-shrink-0">
-          <User className="w-4 h-4 text-[var(--color-muted-foreground)]" />
+        <div className="w-8 h-8 rounded-full bg-secondary flex items-center justify-center flex-shrink-0">
+          <User className="w-4 h-4 text-muted-foreground" />
         </div>
       )}
-      <span className="text-sm text-[var(--color-sidebar-foreground)] truncate">
+      <span className="text-sm text-sidebar-foreground truncate">
         {user?.name ?? 'Unknown'}
       </span>
     </button>
