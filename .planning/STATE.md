@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Completed 02-upload-engine-02-PLAN.md
-last_updated: "2026-03-19T16:58:26.274Z"
+stopped_at: Completed 02-upload-engine-04-PLAN.md
+last_updated: "2026-03-19T17:03:47.997Z"
 progress:
   total_phases: 5
   completed_phases: 1
   total_plans: 8
-  completed_plans: 6
+  completed_plans: 7
 ---
 
 # Project State
@@ -52,6 +52,7 @@ Plan: 3 of 5
 | Phase 02-upload-engine P01 | 3 | 2 tasks | 7 files |
 | Phase 02-upload-engine P03 | 3min | 2 tasks | 4 files |
 | Phase 02-upload-engine P02 | 3min | 2 tasks | 4 files |
+| Phase 02-upload-engine P04 | 3min | 1 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -87,6 +88,9 @@ Recent decisions affecting current work:
 - [Phase 02-upload-engine]: set_max_concurrent decrease replaces semaphore entirely; active uploads hold permits from old semaphore and finish naturally
 - [Phase 02-upload-engine]: bytes crate added for bytes::Bytes parameter type in xorb/shard upload functions
 - [Phase 02-upload-engine]: Helper functions (parse_protocol, format_commit_body, lfs_batch_url) kept pub for offline testability without mocking HTTP
+- [Phase 02-upload-engine]: Fixed 64MB xorb size for simplicity; Gearhash CDC deferred
+- [Phase 02-upload-engine]: Shard serialized as JSON placeholder; spec-compliant binary format deferred
+- [Phase 02-upload-engine]: compute_xorb_ranges extracted as public helper for unit testability
 
 ### Pending Todos
 
@@ -100,6 +104,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-19T16:58:26.272Z
-Stopped at: Completed 02-upload-engine-02-PLAN.md
+Last session: 2026-03-19T17:03:47.995Z
+Stopped at: Completed 02-upload-engine-04-PLAN.md
 Resume file: None
