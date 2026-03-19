@@ -15,6 +15,9 @@ pub fn run() {
         commands::auth::logout,
         commands::auth::get_stored_token,
         commands::auth::check_existing_token,
+        commands::auth::oauth_start,
+        commands::auth::oauth_exchange_code,
+        commands::auth::oauth_cancel,
         commands::upload::enqueue_upload,
         commands::upload::cancel_upload,
         commands::upload::pause_upload,
@@ -39,6 +42,9 @@ pub fn run() {
         .plugin(tauri_plugin_opener::init())
         .plugin(tauri_plugin_fs::init())
         .plugin(tauri_plugin_dialog::init())
+        .plugin(tauri_plugin_oauth::init())
+        .plugin(tauri_plugin_notification::init())
+        .plugin(tauri_plugin_updater::Builder::new().build())
         .invoke_handler(builder.invoke_handler())
         .setup(move |app| {
             builder.mount_events(app);

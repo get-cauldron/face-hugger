@@ -6,6 +6,8 @@
     "store:default",
     "opener:default",
     "fs:default",
-    "dialog:default"
+    "dialog:default",
+    "notification:default",
+    "updater:default"
   ]
 }

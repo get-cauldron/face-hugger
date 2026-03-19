@@ -51,6 +51,41 @@ async checkExistingToken() : Promise<Result<string | null, string>> {
     if(e instanceof Error) throw e;
     else return { status: "error", error: e  as any };
 }
+},
+/**
+ * Start an OAuth browser login flow using PKCE.
+ * Returns the HF authorize URL to open in the browser.
+ */
+async oauthStart() : Promise<Result<string, string>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("oauth_start") };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+/**
+ * Exchange an OAuth authorization code for an access token.
+ * Validates CSRF state, exchanges code via PKCE, stores token in keyring.
+ */
+async oauthExchangeCode(callbackUrl: string) : Promise<Result<UserInfo, string>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("oauth_exchange_code", { callbackUrl }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+/**
+ * Cancel an in-progress OAuth flow, clearing stored PKCE state.
+ */
+async oauthCancel() : Promise<Result<null, string>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("oauth_cancel") };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
 }
 }
 

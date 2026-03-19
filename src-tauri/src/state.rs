@@ -26,6 +26,9 @@ pub struct UserInfo {
 pub struct AuthState {
     pub token: Option<String>,
     pub user: Option<UserInfo>,
+    // OAuth PKCE flow state
+    pub oauth_verifier: Option<String>,
+    pub oauth_state: Option<String>,
 }
 
 pub struct AppState {

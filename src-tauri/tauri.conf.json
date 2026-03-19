@@ -21,7 +21,7 @@
       }
     ],
     "security": {
-      "csp": "default-src 'self'; img-src 'self' data: blob: https://cdn-avatars.huggingface.co https://huggingface.co https://*.huggingface.co; connect-src 'self' https://huggingface.co ipc: http://ipc.localhost; style-src 'self' 'unsafe-inline'"
+      "csp": "default-src 'self'; img-src 'self' data: blob: https://cdn-avatars.huggingface.co https://huggingface.co https://*.huggingface.co; connect-src 'self' https://huggingface.co https://datasets-server.huggingface.co ipc: http://ipc.localhost; style-src 'self' 'unsafe-inline'"
     }
   },
   "bundle": {
