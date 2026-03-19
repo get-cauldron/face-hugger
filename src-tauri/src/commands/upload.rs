@@ -157,8 +157,9 @@ pub async fn resume_upload(
 /// Pause all active uploads. Returns the number of uploads paused.
 #[tauri::command]
 #[specta::specta]
-pub async fn pause_all_uploads(state: tauri::State<'_, AppState>) -> Result<usize, String> {
-    cancel::pause_all(&state.cancel_tokens, &state.db).await
+pub async fn pause_all_uploads(state: tauri::State<'_, AppState>) -> Result<u32, String> {
+    let count = cancel::pause_all(&state.cancel_tokens, &state.db).await?;
+    Ok(count as u32)
 }
 
 /// List all upload jobs (all states) ordered by priority then creation time.
@@ -223,12 +224,12 @@ pub async fn start_upload_monitoring(
 #[tauri::command]
 #[specta::specta]
 pub async fn set_concurrent_limit(
-    limit: usize,
+    limit: u32,
     app: tauri::AppHandle,
     state: tauri::State<'_, AppState>,
 ) -> Result<(), String> {
     // Clamp to 1..=5 (mirrors UploadQueue::set_max_concurrent clamping — defense-in-depth)
-    let clamped = limit.clamp(1, 5);
+    let clamped = (limit as usize).clamp(1, 5);
 
     // Persist to tauri-plugin-store so value survives restart
     let store = app

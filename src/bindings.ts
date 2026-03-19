@@ -55,6 +55,7 @@ async checkExistingToken() : Promise<Result<string | null, string>> {
 /**
  * Start an OAuth browser login flow using PKCE.
  * Returns the HF authorize URL to open in the browser.
+ * A localhost server is started to receive the callback.
  */
 async oauthStart() : Promise<Result<string, string>> {
     try {
@@ -86,6 +87,111 @@ async oauthCancel() : Promise<Result<null, string>> {
     if(e instanceof Error) throw e;
     else return { status: "error", error: e  as any };
 }
+},
+/**
+ * Enqueue a file for upload. Validates the file exists, inserts a DB row,
+ * and kicks the queue so a worker starts if capacity is available.
+ */
+async enqueueUpload(filePath: string, repoId: string, repoType: string, revision: string, commitMessage: string, priority: boolean) : Promise<Result<UploadJob, string>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("enqueue_upload", { filePath, repoId, repoType, revision, commitMessage, priority }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+/**
+ * Cancel a specific upload by job ID.
+ */
+async cancelUpload(jobId: string) : Promise<Result<null, string>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("cancel_upload", { jobId }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+/**
+ * Pause a specific upload by job ID.
+ */
+async pauseUpload(jobId: string) : Promise<Result<null, string>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("pause_upload", { jobId }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+/**
+ * Resume a paused upload by setting its state back to "pending" and kicking the queue.
+ */
+async resumeUpload(jobId: string) : Promise<Result<null, string>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("resume_upload", { jobId }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+/**
+ * Pause all active uploads. Returns the number of uploads paused.
+ */
+async pauseAllUploads() : Promise<Result<number, string>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("pause_all_uploads") };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+/**
+ * List all upload jobs (all states) ordered by priority then creation time.
+ */
+async listUploads() : Promise<Result<UploadJob[], string>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("list_uploads") };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+/**
+ * Toggle priority on an upload job.
+ */
+async setUploadPriority(jobId: string, priority: boolean) : Promise<Result<null, string>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("set_upload_priority", { jobId, priority }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+/**
+ * Start the progress monitoring channel. The channel emits Vec<UploadProgress>
+ * every 500ms containing all currently active upload jobs.
+ * 
+ * The frontend receives batched updates — never per-chunk.
+ * Also drives tray icon animation and menu updates at the same cadence.
+ */
+async startUploadMonitoring(channel: TAURI_CHANNEL<UploadProgress[]>) : Promise<Result<null, string>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("start_upload_monitoring", { channel }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+/**
+ * Update the concurrent upload limit (1-5). Persisted to tauri-plugin-store
+ * so the value survives app restarts.
+ */
+async setConcurrentLimit(limit: number) : Promise<Result<null, string>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("set_concurrent_limit", { limit }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
 }
 }
 
@@ -99,13 +205,11 @@ async oauthCancel() : Promise<Result<null, string>> {
 
 /** user-defined types **/
 
-export type UploadJobState = "pending" | "hashing" | "uploading" | "committing" | "done" | "failed" | "paused" | "cancelled";
-export type UploadProtocol = "xet" | "lfs_multipart";
-
-// Re-export upload types from commands/upload.ts for convenience
-export type { UploadJob, UploadProgress } from './commands/upload';
-
-export type UserInfo = { name: string; fullname: string | null;
+export type UploadJob = { id: string; file_path: string; file_name: string; repo_id: string; repo_type: string; revision: string; commit_message: string; total_bytes: number; bytes_confirmed: number; protocol: UploadProtocol | null; state: UploadJobState; priority: boolean; retry_count: number; last_error: string | null; created_at: number; updated_at: number }
+export type UploadJobState = "pending" | "hashing" | "uploading" | "committing" | "done" | "failed" | "paused" | "cancelled"
+export type UploadProgress = { job_id: string; bytes_sent: number; total_bytes: number; speed_bps: number; eta_seconds: number; state: UploadJobState }
+export type UploadProtocol = "xet" | "lfs_multipart"
+export type UserInfo = { name: string; fullname: string | null; 
 /**
  * HF API returns "avatarUrl" — rename to snake_case for consistency across Rust and TypeScript.
  */
