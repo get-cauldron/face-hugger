@@ -4,6 +4,9 @@ use std::collections::HashMap;
 use tokio::sync::Mutex;
 use tokio_util::sync::CancellationToken;
 
+use crate::upload::progress::ProgressMap;
+use crate::upload::queue::UploadQueue;
+
 #[derive(Debug, Clone, Serialize, Deserialize, specta::Type)]
 pub struct UserInfo {
     pub name: String,
@@ -29,14 +32,21 @@ pub struct AppState {
     pub auth: Mutex<AuthState>,
     pub db: SqlitePool,
     pub cancel_tokens: Mutex<HashMap<String, CancellationToken>>,
+    pub upload_queue: Mutex<UploadQueue>,
+    pub progress_map: ProgressMap,
+    /// JoinHandle for the progress emitter task (so it can be aborted on shutdown)
+    pub progress_emitter: Mutex<Option<tokio::task::JoinHandle<()>>>,
 }
 
 impl AppState {
-    pub fn new(db: SqlitePool) -> Self {
+    pub fn new(db: SqlitePool, max_concurrent: usize) -> Self {
         Self {
             auth: Mutex::new(AuthState::default()),
             db,
             cancel_tokens: Mutex::new(HashMap::new()),
+            upload_queue: Mutex::new(UploadQueue::new(max_concurrent)),
+            progress_map: crate::upload::progress::new_progress_map(),
+            progress_emitter: Mutex::new(None),
         }
     }
 }
