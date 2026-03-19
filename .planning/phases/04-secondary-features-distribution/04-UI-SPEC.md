@@ -121,6 +121,8 @@ Every new UI surface introduced in Phase 4:
 
 **Layout:** Full-screen centered card (existing card pattern, `max-w-md`, `bg-card rounded-2xl`)
 
+**Primary visual anchor:** The "Sign in with Hugging Face" button is the focal point of this screen. It is full-width, accent-colored, and the only interactive element in the default state. All other elements (heading, subtext, token fallback link) are subordinate and styled at lower visual weight.
+
 **States and their visuals:**
 
 | State | What user sees |
@@ -152,7 +154,7 @@ Every new UI surface introduced in Phase 4:
 - **Table** (`Table` from shadcn): fixed header, scrollable body. Column width: equal distribution unless values are truncated (max 240px per column).
 - **Column header badge**: `Badge` component, 10px text, muted background (`bg-secondary`), colored text per type. Badge padding: `px-1 py-0`. Colors: string=blue-ish `text-blue-400`, int=amber `text-amber-400`, float=amber `text-amber-400`, bool=green `text-green-400`, other=`text-muted-foreground`.
 - **Row count footer**: "Rows {start}–{end} of {total}" + pagination prev/next buttons. 14px, `text-muted-foreground`.
-- **Search highlight**: matched substring wrapped in `<mark className="bg-primary/20 text-primary rounded-sm px-0.5">`.
+- **Search highlight**: matched substring wrapped in `<mark className="bg-primary/20 text-primary rounded-sm px-1">`.
 
 **Column stat side panel**: slides in from right edge of preview area (not full-screen sheet). Width 320px. `bg-card border-l border-border`. Shows: column name heading, type badge, null count, min/max, mean, unique count, and a `recharts BarChart` histogram (if numeric/class). Close via X button top-right with `aria-label="Close statistics panel"`.
 
