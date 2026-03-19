@@ -1,10 +1,11 @@
 use sqlx::SqlitePool;
 use std::collections::HashMap;
 use std::sync::Arc;
+use tauri::AppHandle;
 use tokio::sync::{Mutex, Semaphore};
 use tokio_util::sync::CancellationToken;
 
-use crate::db::schema::update_job_state;
+use crate::db::schema::{get_job, update_job_state};
 use crate::upload::progress::ProgressMap;
 use crate::upload::types::UploadProgress;
 use crate::upload::worker::run_upload_job;
@@ -64,12 +65,16 @@ pub async fn next_pending_job(db: &SqlitePool) -> Option<String> {
 
 /// Try to start the next pending job. Called after enqueue, after a job completes, or after resume.
 /// Returns the job_id if a job was started.
+///
+/// `app_handle` is optional — when present, desktop notifications are sent on
+/// job completion and failure.
 pub async fn try_start_next(
     queue: &UploadQueue,
     db: &SqlitePool,
     hf_token: &str,
     cancel_tokens: &Mutex<HashMap<String, CancellationToken>>,
     progress_map: &ProgressMap,
+    app_handle: Option<AppHandle>,
 ) -> Option<String> {
     // Check if there is a permit available (non-blocking)
     let permit = queue.semaphore.clone().try_acquire_owned().ok()?;
@@ -91,6 +96,7 @@ pub async fn try_start_next(
     let token_clone = hf_token.to_string();
     let progress_clone = Arc::clone(progress_map);
     let db_for_cleanup = db.clone();
+    let db_for_notify = db.clone();
 
     tokio::spawn(async move {
         // Permit is held for the duration of the task
@@ -106,16 +112,32 @@ pub async fn try_start_next(
         )
         .await;
 
-        // On failure, mark job as failed in DB
-        if let Err(ref e) = result {
-            eprintln!("[worker] job {} failed: {}", id_clone, e);
-            let now = chrono::Utc::now().timestamp();
-            let _ = update_job_state(&db_for_cleanup, &id_clone, "failed", now).await;
-        }
+        // Fetch job metadata for notifications (file name and repo id)
+        let (file_name, repo_id) = match get_job(&db_for_notify, &id_clone).await {
+            Ok(Some(job)) => (job.file_name, job.repo_id),
+            _ => (id_clone.clone(), String::new()),
+        };
 
-        // Clean up cancel token
-        // Safety: we know AppState outlives all spawned tasks
-        // Remove from progress map
+        match result {
+            Ok(()) => {
+                // Notify on successful upload
+                if let Some(ref app) = app_handle {
+                    crate::tray::notify_upload_complete(app, &file_name, &repo_id);
+                }
+            }
+            Err(ref e) => {
+                // Distinguish pause/cancel from real failures — don't notify for user-initiated stops
+                let is_user_stop = e.contains("paused") || e.contains("cancelled");
+                if !is_user_stop {
+                    eprintln!("[worker] job {} failed: {}", id_clone, e);
+                    let now = chrono::Utc::now().timestamp();
+                    let _ = update_job_state(&db_for_cleanup, &id_clone, "failed", now).await;
+                    if let Some(ref app) = app_handle {
+                        crate::tray::notify_upload_failed(app, &file_name, &repo_id);
+                    }
+                }
+            }
+        }
     });
 
     Some(job_id)

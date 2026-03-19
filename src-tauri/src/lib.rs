@@ -2,10 +2,11 @@ mod commands;
 pub mod db;
 pub mod hf;
 pub mod state;
+pub mod tray;
 pub mod upload;
 
 use state::AppState;
-use tauri::Manager;
+use tauri::{AppHandle, Manager};
 use tauri_plugin_store::StoreExt;
 use tauri_specta::{collect_commands, Builder};
 
@@ -48,6 +49,20 @@ pub fn run() {
         .invoke_handler(builder.invoke_handler())
         .setup(move |app| {
             builder.mount_events(app);
+
+            // Listen for tray "Pause All" menu event and trigger pause_all_uploads.
+            // The tray menu event handler emits this event; we handle it in Rust so
+            // pausing works even when the main window is hidden.
+            let app_for_pause = app.handle().clone();
+            app.listen("tray-pause-all", move |_event| {
+                let app_clone = app_for_pause.clone();
+                tauri::async_runtime::spawn(async move {
+                    if let Some(state) = app_clone.try_state::<AppState>() {
+                        let _ = upload::cancel::pause_all(&state.cancel_tokens, &state.db).await;
+                    }
+                });
+            });
+
             let app_handle = app.handle().clone();
             tauri::async_runtime::spawn(async move {
                 let app_data_dir = app_handle.path().app_data_dir().expect("no app data dir");
@@ -65,9 +80,43 @@ pub fn run() {
                     .unwrap_or(2);
 
                 app_handle.manage(AppState::new(pool, concurrent_limit));
+
+                // Setup system tray (must run after AppState is managed)
+                crate::tray::setup_tray(&app_handle)
+                    .expect("failed to setup tray");
             });
             Ok(())
         })
-        .run(tauri::generate_context!())
-        .expect("error while running tauri application");
+        .build(tauri::generate_context!())
+        .expect("error building tauri application")
+        .run(|app_handle, event| {
+            if let tauri::RunEvent::ExitRequested { api, code, .. } = event {
+                // code == None means the window close button was clicked
+                // (not a process-level kill signal).
+                if code.is_none() && check_active_uploads(app_handle) {
+                    // Uploads are in progress — hide the window and stay alive.
+                    api.prevent_exit();
+                    if let Some(w) = app_handle.get_webview_window("main") {
+                        let _ = w.hide();
+                    }
+                }
+                // No active uploads: allow the natural exit.
+            }
+        });
+}
+
+// ---------------------------------------------------------------------------
+// Helpers
+// ---------------------------------------------------------------------------
+
+/// Returns true if any upload is currently transferring bytes (hashing, uploading, committing).
+/// Used by RunEvent::ExitRequested to decide whether to hide-to-tray or quit.
+fn check_active_uploads(app_handle: &AppHandle) -> bool {
+    // AppState may not be managed yet if the app is closed before setup completes.
+    let state = match app_handle.try_state::<AppState>() {
+        Some(s) => s,
+        None => return false,
+    };
+    let progress = state.progress_map.lock().unwrap();
+    progress.values().any(|p| p.state.is_active())
 }

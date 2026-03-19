@@ -39,6 +39,8 @@ pub struct AppState {
     pub progress_map: ProgressMap,
     /// JoinHandle for the progress emitter task (so it can be aborted on shutdown)
     pub progress_emitter: Mutex<Option<tokio::task::JoinHandle<()>>>,
+    /// Handle to the tray animation task (abort to stop animation)
+    pub tray_animation: Mutex<Option<tokio::task::JoinHandle<()>>>,
 }
 
 impl AppState {
@@ -50,6 +52,7 @@ impl AppState {
             upload_queue: Mutex::new(UploadQueue::new(max_concurrent)),
             progress_map: crate::upload::progress::new_progress_map(),
             progress_emitter: Mutex::new(None),
+            tray_animation: Mutex::new(None),
         }
     }
 }

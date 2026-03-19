@@ -96,9 +96,13 @@ impl SpeedTracker {
 /// The Channel sends all active jobs' progress at once — never per-chunk.
 /// This design is more efficient than one channel per job and ensures the
 /// frontend receives a consistent snapshot of all in-flight uploads.
+///
+/// If `app_handle` is provided, the tray icon and menu are also updated at
+/// the same 500ms cadence to reflect active upload count and overall progress.
 pub fn start_progress_emitter(
     progress_map: ProgressMap,
     channel: Channel<Vec<UploadProgress>>,
+    app_handle: Option<tauri::AppHandle>,
 ) -> tokio::task::JoinHandle<()> {
     tokio::spawn(async move {
         let mut timer = interval(Duration::from_millis(500));
@@ -109,7 +113,43 @@ pub fn start_progress_emitter(
                 map.values().cloned().collect()
             };
             if !updates.is_empty() {
-                let _ = channel.send(updates);
+                let _ = channel.send(updates.clone());
+            }
+
+            // Update tray menu and animation when app handle is present.
+            if let Some(ref app) = app_handle {
+                let active_updates: Vec<&UploadProgress> = updates
+                    .iter()
+                    .filter(|p| p.state.is_active())
+                    .collect();
+                let active_count = active_updates.len();
+
+                let pct: u8 = if active_count > 0 {
+                    let total_transferred: u64 =
+                        active_updates.iter().map(|p| p.bytes_sent).sum();
+                    let total_size: u64 =
+                        active_updates.iter().map(|p| p.total_bytes).sum();
+                    if total_size > 0 {
+                        ((total_transferred * 100) / total_size) as u8
+                    } else {
+                        0
+                    }
+                } else {
+                    0
+                };
+
+                crate::tray::update_tray_menu(app, active_count, pct);
+
+                // Start animation when uploads are active; stop when idle.
+                if let Some(state) = app.try_state::<crate::state::AppState>() {
+                    let anim_running = state.tray_animation.blocking_lock().is_some();
+
+                    if active_count > 0 && !anim_running {
+                        crate::tray::start_tray_animation(app.clone());
+                    } else if active_count == 0 && anim_running {
+                        crate::tray::stop_tray_animation(app);
+                    }
+                }
             }
         }
     })

@@ -51,6 +51,7 @@ pub async fn enqueue_upload(
     revision: String,
     commit_message: String,
     priority: bool,
+    app: tauri::AppHandle,
     state: tauri::State<'_, AppState>,
 ) -> Result<UploadJob, String> {
     // Validate file exists and get size
@@ -94,7 +95,7 @@ pub async fn enqueue_upload(
         let auth = state.auth.lock().await;
         auth.token.clone().unwrap_or_default()
     };
-    let _ = try_start_next(&queue, &state.db, &hf_token, &state.cancel_tokens, &state.progress_map).await;
+    let _ = try_start_next(&queue, &state.db, &hf_token, &state.cancel_tokens, &state.progress_map, Some(app)).await;
     drop(queue);
 
     // Return the new job
@@ -131,6 +132,7 @@ pub async fn pause_upload(
 #[specta::specta]
 pub async fn resume_upload(
     job_id: String,
+    app: tauri::AppHandle,
     state: tauri::State<'_, AppState>,
 ) -> Result<(), String> {
     let now = chrono::Utc::now().timestamp();
@@ -146,7 +148,7 @@ pub async fn resume_upload(
         let auth = state.auth.lock().await;
         auth.token.clone().unwrap_or_default()
     };
-    let _ = try_start_next(&queue, &state.db, &hf_token, &state.cancel_tokens, &state.progress_map).await;
+    let _ = try_start_next(&queue, &state.db, &hf_token, &state.cancel_tokens, &state.progress_map, Some(app)).await;
     drop(queue);
 
     Ok(())
@@ -196,10 +198,12 @@ pub async fn set_upload_priority(
 /// every 500ms containing all currently active upload jobs.
 ///
 /// The frontend receives batched updates — never per-chunk.
+/// Also drives tray icon animation and menu updates at the same cadence.
 #[tauri::command]
 #[specta::specta]
 pub async fn start_upload_monitoring(
     channel: Channel<Vec<UploadProgress>>,
+    app: tauri::AppHandle,
     state: tauri::State<'_, AppState>,
 ) -> Result<(), String> {
     // Abort any existing emitter task before starting a new one
@@ -208,7 +212,7 @@ pub async fn start_upload_monitoring(
         existing.abort();
     }
 
-    let join_handle = start_progress_emitter(state.progress_map.clone(), channel);
+    let join_handle = start_progress_emitter(state.progress_map.clone(), channel, Some(app));
     *handle = Some(join_handle);
 
     Ok(())
