@@ -17,7 +17,7 @@ export default function RepoBrowserPage({ repoId, repoType, onBack }: RepoBrowse
   const [activeTab, setActiveTab] = useState<Tab>('files');
   const [deleteRepoOpen, setDeleteRepoOpen] = useState(false);
 
-  const { data: files, isPending, isError, refetch } = useRepoFiles(repoId, repoType);
+  const { data: files, isPending, isError, error, refetch } = useRepoFiles(repoId, repoType);
 
   return (
     <div className="flex flex-col h-full">
@@ -30,7 +30,7 @@ export default function RepoBrowserPage({ repoId, repoType, onBack }: RepoBrowse
           ← Back
         </button>
         <div className="flex items-center gap-2 flex-1 min-w-0">
-          <h1 className="text-lg font-semibold truncate">{repoId}</h1>
+          <h1 className="text-lg font-semibold truncate" title={`repoId=${repoId}`}>{repoId}</h1>
           <span className="text-xs px-1.5 py-0.5 rounded bg-secondary text-secondary-foreground capitalize flex-shrink-0">
             {repoType}
           </span>
@@ -91,6 +91,11 @@ export default function RepoBrowserPage({ repoId, repoType, onBack }: RepoBrowse
             {isError && (
               <div className="flex flex-col items-center justify-center h-48 text-muted-foreground gap-3">
                 <p className="text-sm text-destructive">Failed to load files</p>
+                {error && (
+                  <p className="text-xs text-muted-foreground max-w-md text-center font-mono">
+                    {error.message}
+                  </p>
+                )}
                 <button
                   onClick={() => refetch()}
                   className="text-sm text-primary hover:underline cursor-pointer"

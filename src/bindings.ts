@@ -205,6 +205,7 @@ async setConcurrentLimit(limit: number) : Promise<Result<null, string>> {
 
 /** user-defined types **/
 
+export type TAURI_CHANNEL<TSend> = null
 export type UploadJob = { id: string; file_path: string; file_name: string; repo_id: string; repo_type: string; revision: string; commit_message: string; total_bytes: number; bytes_confirmed: number; protocol: UploadProtocol | null; state: UploadJobState; priority: boolean; retry_count: number; last_error: string | null; created_at: number; updated_at: number }
 export type UploadJobState = "pending" | "hashing" | "uploading" | "committing" | "done" | "failed" | "paused" | "cancelled"
 export type UploadProgress = { job_id: string; bytes_sent: number; total_bytes: number; speed_bps: number; eta_seconds: number; state: UploadJobState }

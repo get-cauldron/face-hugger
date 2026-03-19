@@ -4,9 +4,7 @@ use tauri::Emitter;
 use crate::hf;
 use crate::state::{AppState, UserInfo};
 
-/// HF OAuth App client_id — public value for native PKCE apps (no secret).
-/// Register at https://huggingface.co/settings/applications/new
-const HF_OAUTH_CLIENT_ID: &str = "TODO_REGISTER_HF_OAUTH_APP";
+const HF_OAUTH_CLIENT_ID: &str = "82869276-6318-48dd-a739-42e92545d227";
 
 fn generate_pkce_verifier() -> String {
     use rand::Rng;
