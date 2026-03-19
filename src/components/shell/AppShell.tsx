@@ -17,17 +17,19 @@ function ContentArea({
   selectedRepoId,
   selectedRepoType,
   onBack,
+  onRepoSelect,
 }: {
   section: Section;
   selectedRepoId: string | null;
   selectedRepoType: 'model' | 'dataset';
   onBack: () => void;
+  onRepoSelect: (repoId: string, repoType: 'model' | 'dataset') => void;
 }) {
   switch (section) {
     case 'models':
-      return <ModelsPage />;
+      return <ModelsPage onRepoSelect={onRepoSelect} />;
     case 'datasets':
-      return <DatasetsPage />;
+      return <DatasetsPage onRepoSelect={onRepoSelect} />;
     case 'settings':
       return <SettingsPage />;
     case 'upload':
@@ -131,6 +133,7 @@ export default function AppShell() {
             selectedRepoId={selectedRepoId}
             selectedRepoType={selectedRepoType}
             onBack={handleBack}
+            onRepoSelect={navigateToRepo}
           />
 
           {/* Drag-over overlay — shown when OS files are dragged over the app window */}

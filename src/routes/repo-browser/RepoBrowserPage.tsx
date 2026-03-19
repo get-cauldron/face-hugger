@@ -1,5 +1,8 @@
 import { useState } from 'react';
+import { useRepoFiles } from '../../queries/useRepoFiles';
 import CommitTimeline from './CommitTimeline';
+import FileTree from './FileTree';
+import { DeleteRepoDialog } from './FileActions';
 
 interface RepoBrowserPageProps {
   repoId: string;
@@ -11,6 +14,9 @@ type Tab = 'files' | 'history';
 
 export default function RepoBrowserPage({ repoId, repoType, onBack }: RepoBrowserPageProps) {
   const [activeTab, setActiveTab] = useState<Tab>('files');
+  const [deleteRepoOpen, setDeleteRepoOpen] = useState(false);
+
+  const { data: files, isPending, isError, refetch } = useRepoFiles(repoId, repoType);
 
   return (
     <div className="flex flex-col h-full">
@@ -22,12 +28,18 @@ export default function RepoBrowserPage({ repoId, repoType, onBack }: RepoBrowse
         >
           ← Back
         </button>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-1 min-w-0">
           <h1 className="text-lg font-semibold truncate">{repoId}</h1>
-          <span className="text-xs px-1.5 py-0.5 rounded bg-secondary text-secondary-foreground capitalize">
+          <span className="text-xs px-1.5 py-0.5 rounded bg-secondary text-secondary-foreground capitalize flex-shrink-0">
             {repoType}
           </span>
         </div>
+        <button
+          onClick={() => setDeleteRepoOpen(true)}
+          className="flex-shrink-0 text-sm px-3 py-1.5 rounded-md border border-destructive text-destructive hover:bg-destructive hover:text-destructive-foreground transition-colors cursor-pointer"
+        >
+          Delete Repository
+        </button>
       </div>
 
       {/* Tab bar */}
@@ -57,14 +69,45 @@ export default function RepoBrowserPage({ repoId, repoType, onBack }: RepoBrowse
       {/* Tab content */}
       <div className="flex-1 overflow-auto">
         {activeTab === 'files' && (
-          <div className="flex flex-col items-center justify-center h-48 text-muted-foreground">
-            <p className="text-sm">File tree — coming in plan 03-04</p>
-          </div>
+          <>
+            {isPending && (
+              <div className="flex flex-col items-center justify-center h-48 text-muted-foreground">
+                <p className="text-sm">Loading files...</p>
+              </div>
+            )}
+            {isError && (
+              <div className="flex flex-col items-center justify-center h-48 text-muted-foreground gap-3">
+                <p className="text-sm text-destructive">Failed to load files</p>
+                <button
+                  onClick={() => refetch()}
+                  className="text-sm text-primary hover:underline cursor-pointer"
+                >
+                  Retry
+                </button>
+              </div>
+            )}
+            {!isPending && !isError && files && (
+              <FileTree
+                files={files}
+                repoId={repoId}
+                repoType={repoType}
+              />
+            )}
+          </>
         )}
         {activeTab === 'history' && (
           <CommitTimeline repoId={repoId} repoType={repoType} />
         )}
       </div>
+
+      {/* Delete repo dialog */}
+      <DeleteRepoDialog
+        open={deleteRepoOpen}
+        onOpenChange={setDeleteRepoOpen}
+        repoId={repoId}
+        repoType={repoType}
+        onDeleted={onBack}
+      />
     </div>
   );
 }

@@ -15,7 +15,11 @@ function SkeletonCard() {
   );
 }
 
-export default function ModelsPage() {
+interface ModelsPageProps {
+  onRepoSelect?: (repoId: string, repoType: 'model' | 'dataset') => void;
+}
+
+export default function ModelsPage({ onRepoSelect }: ModelsPageProps) {
   const { data: repos, isPending, isError } = useModels();
 
   const [searchQuery, setSearchQuery] = useState('');
@@ -94,6 +98,7 @@ export default function ModelsPage() {
     const recent = await getPreference<string[]>('recentModels', []);
     const updated = [repo.id, ...recent.filter((id) => id !== repo.id)].slice(0, 5);
     await setPreference('recentModels', updated);
+    onRepoSelect?.(repo.id, 'model');
   };
 
   return (

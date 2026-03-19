@@ -15,7 +15,11 @@ function SkeletonCard() {
   );
 }
 
-export default function DatasetsPage() {
+interface DatasetsPageProps {
+  onRepoSelect?: (repoId: string, repoType: 'model' | 'dataset') => void;
+}
+
+export default function DatasetsPage({ onRepoSelect }: DatasetsPageProps) {
   const { data: repos, isPending, isError } = useDatasets();
 
   const [searchQuery, setSearchQuery] = useState('');
@@ -94,6 +98,7 @@ export default function DatasetsPage() {
     const recent = await getPreference<string[]>('recentDatasets', []);
     const updated = [repo.id, ...recent.filter((id) => id !== repo.id)].slice(0, 5);
     await setPreference('recentDatasets', updated);
+    onRepoSelect?.(repo.id, 'dataset');
   };
 
   return (
