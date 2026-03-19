@@ -1,5 +1,8 @@
 use serde::{Deserialize, Serialize};
+use sqlx::SqlitePool;
+use std::collections::HashMap;
 use tokio::sync::Mutex;
+use tokio_util::sync::CancellationToken;
 
 #[derive(Debug, Clone, Serialize, Deserialize, specta::Type)]
 pub struct UserInfo {
@@ -24,12 +27,16 @@ pub struct AuthState {
 
 pub struct AppState {
     pub auth: Mutex<AuthState>,
+    pub db: SqlitePool,
+    pub cancel_tokens: Mutex<HashMap<String, CancellationToken>>,
 }
 
-impl Default for AppState {
-    fn default() -> Self {
+impl AppState {
+    pub fn new(db: SqlitePool) -> Self {
         Self {
             auth: Mutex::new(AuthState::default()),
+            db,
+            cancel_tokens: Mutex::new(HashMap::new()),
         }
     }
 }

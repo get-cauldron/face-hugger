@@ -1,8 +1,11 @@
 mod commands;
+pub mod db;
 pub mod hf;
 pub mod state;
+pub mod upload;
 
 use state::AppState;
+use tauri::Manager;
 use tauri_specta::{collect_commands, Builder};
 
 pub fn run() {
@@ -25,10 +28,16 @@ pub fn run() {
         .plugin(tauri_plugin_store::Builder::default().build())
         .plugin(tauri_plugin_opener::init())
         .plugin(tauri_plugin_fs::init())
-        .manage(AppState::default())
         .invoke_handler(builder.invoke_handler())
         .setup(move |app| {
             builder.mount_events(app);
+            let app_handle = app.handle().clone();
+            tauri::async_runtime::spawn(async move {
+                let app_data_dir = app_handle.path().app_data_dir().expect("no app data dir");
+                std::fs::create_dir_all(&app_data_dir).ok();
+                let pool = db::init_db(&app_data_dir).await.expect("failed to init upload db");
+                app_handle.manage(AppState::new(pool));
+            });
             Ok(())
         })
         .run(tauri::generate_context!())
