@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Completed 04-02-PLAN.md
-last_updated: "2026-03-19T20:47:38.461Z"
+stopped_at: Completed 04-01-PLAN.md
+last_updated: "2026-03-19T20:48:34.561Z"
 progress:
   total_phases: 5
   completed_phases: 3
   total_plans: 17
-  completed_plans: 14
+  completed_plans: 15
 ---
 
 # Project State
@@ -24,7 +24,7 @@ See: .planning/PROJECT.md (updated 2026-03-19)
 ## Current Position
 
 Phase: 04 (secondary-features-distribution) — EXECUTING
-Plan: 1 of 4
+Plan: 2 of 4
 
 ## Performance Metrics
 
@@ -60,6 +60,7 @@ Plan: 1 of 4
 | Phase 03-upload-ui-repo-management P03 | 5min | 2 tasks | 8 files |
 | Phase 03-upload-ui-repo-management P04 | 3min | 2 tasks | 8 files |
 | Phase 04-secondary-features-distribution P02 | 5min | 3 tasks | 8 files |
+| Phase 04-secondary-features-distribution P01 | 5min | 2 tasks | 11 files |
 
 ## Accumulated Context
 
@@ -114,6 +115,10 @@ Recent decisions affecting current work:
 - [Phase 03-upload-ui-repo-management]: onRepoSelect callback threaded AppShell → ContentArea → ModelsPage/DatasetsPage; handleRepoClick calls onRepoSelect after writing recent preference
 - [Phase 04-secondary-features-distribution]: Dataset query priority: search > filter > plain rows when multiple modes active
 - [Phase 04-secondary-features-distribution]: ColumnStatPanel toggle: clicking same column header closes the stat panel
+- [Phase 04-secondary-features-distribution]: bindings.ts hand-authored for OAuth commands — cargo not available in env; stubs match tauri-specta snake_case→camelCase convention
+- [Phase 04-secondary-features-distribution]: OAuth token stored in same face-hugger/hf-token keyring entry as paste tokens — unified storage so check_existing_token works for both auth paths
+- [Phase 04-secondary-features-distribution]: Frontend calls getStoredToken() after oauthExchangeCode returns UserInfo — token not in return value; fetched from Rust keyring state for zustand store
+- [Phase 04-secondary-features-distribution]: tauri-plugin-oauth uses localhost HTTP redirect — no deep-link scheme registration needed; resolves Phase 4 blocker noted in STATE.md
 
 ### Pending Todos
 
@@ -127,6 +132,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-19T20:47:38.458Z
-Stopped at: Completed 04-02-PLAN.md
+Last session: 2026-03-19T20:48:34.559Z
+Stopped at: Completed 04-01-PLAN.md
 Resume file: None
