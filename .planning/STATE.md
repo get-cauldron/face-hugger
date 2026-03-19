@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Completed 02-upload-engine-04-PLAN.md
-last_updated: "2026-03-19T17:03:47.997Z"
+stopped_at: Completed 02-upload-engine-05-PLAN.md
+last_updated: "2026-03-19T17:10:01.359Z"
 progress:
   total_phases: 5
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 8
-  completed_plans: 7
+  completed_plans: 8
 ---
 
 # Project State
@@ -53,6 +53,7 @@ Plan: 3 of 5
 | Phase 02-upload-engine P03 | 3min | 2 tasks | 4 files |
 | Phase 02-upload-engine P02 | 3min | 2 tasks | 4 files |
 | Phase 02-upload-engine P04 | 3min | 1 tasks | 3 files |
+| Phase 02-upload-engine P05 | 3min | 2 tasks | 8 files |
 
 ## Accumulated Context
 
@@ -91,6 +92,9 @@ Recent decisions affecting current work:
 - [Phase 02-upload-engine]: Fixed 64MB xorb size for simplicity; Gearhash CDC deferred
 - [Phase 02-upload-engine]: Shard serialized as JSON placeholder; spec-compliant binary format deferred
 - [Phase 02-upload-engine]: compute_xorb_ranges extracted as public helper for unit testability
+- [Phase 02-upload-engine]: ProgressMap uses std::sync::Mutex (not tokio) — short critical sections shared between sync worker and async timer are correct use case
+- [Phase 02-upload-engine]: start_progress_emitter stores JoinHandle in AppState to prevent duplicate emitter tasks on re-call
+- [Phase 02-upload-engine]: Frontend invoke uses snake_case field names matching Rust serde serialization
 
 ### Pending Todos
 
@@ -104,6 +108,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-19T17:03:47.995Z
-Stopped at: Completed 02-upload-engine-04-PLAN.md
+Last session: 2026-03-19T17:10:01.357Z
+Stopped at: Completed 02-upload-engine-05-PLAN.md
 Resume file: None

@@ -18,7 +18,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [x] **UPLD-01**: User can upload files to HF repos using chunked streaming (supports 1-100GB+)
 - [x] **UPLD-02**: Uploads resume automatically after network interruption
-- [ ] **UPLD-03**: User sees per-file progress bar with speed and ETA
+- [x] **UPLD-03**: User sees per-file progress bar with speed and ETA
 - [x] **UPLD-04**: User can queue multiple uploads
 - [x] **UPLD-05**: User can cancel, pause, and resume individual uploads
 - [ ] **UPLD-06**: Upload wizard guides first-time users through repo selection, file selection, and upload
@@ -85,7 +85,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | AUTH-04 | Phase 1 | Complete |
 | UPLD-01 | Phase 2 | Complete |
 | UPLD-02 | Phase 2 | Complete |
-| UPLD-03 | Phase 2 | Pending |
+| UPLD-03 | Phase 2 | Complete |
 | UPLD-04 | Phase 2 | Complete |
 | UPLD-05 | Phase 2 | Complete |
 | UPLD-06 | Phase 3 | Pending |
