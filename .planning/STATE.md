@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Completed 03-05-PLAN.md
-last_updated: "2026-03-19T18:19:06.934Z"
+stopped_at: Completed 03-03-PLAN.md
+last_updated: "2026-03-19T18:19:17.779Z"
 progress:
   total_phases: 5
   completed_phases: 2
@@ -24,7 +24,7 @@ See: .planning/PROJECT.md (updated 2026-03-19)
 ## Current Position
 
 Phase: 03 (upload-ui-repo-management) — EXECUTING
-Plan: 2 of 5
+Plan: 3 of 5
 
 ## Performance Metrics
 
@@ -57,6 +57,7 @@ Plan: 2 of 5
 | Phase 03-upload-ui P01 | 5min | 3 tasks | 20 files |
 | Phase 03-upload-ui-repo-management P02 | 6min | 2 tasks | 9 files |
 | Phase 03-upload-ui-repo-management P05 | 8min | 2 tasks | 6 files |
+| Phase 03-upload-ui-repo-management P03 | 5min | 2 tasks | 8 files |
 
 ## Accumulated Context
 
@@ -105,6 +106,8 @@ Recent decisions affecting current work:
 - [Phase 03-upload-ui-repo-management]: handleRepoCreated constructs synthetic RepoItem for immediate auto-selection without waiting for React Query refetch
 - [Phase 03-upload-ui-repo-management]: Server-side URL resolution for revert operations: pass HF CDN URL as content to hub commit() — no large file downloads client-side
 - [Phase 03-upload-ui-repo-management]: Restore uses same squash-forward commit logic as Revert; destructive appearance via red button + typed-name confirmation gate
+- [Phase 03-upload-ui-repo-management]: onDragDropEvent from @tauri-apps/api/webview used for OS drag-and-drop — HTML5 ondrop does not fire for OS file drops in Tauri on macOS/Linux
+- [Phase 03-upload-ui-repo-management]: FolderSync uses file size as change detection heuristic — no hash comparison needed for initial sync UX
 
 ### Pending Todos
 
@@ -118,6 +121,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-19T18:18:56.454Z
-Stopped at: Completed 03-05-PLAN.md
+Last session: 2026-03-19T18:19:17.777Z
+Stopped at: Completed 03-03-PLAN.md
 Resume file: None

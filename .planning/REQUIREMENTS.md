@@ -22,8 +22,8 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **UPLD-04**: User can queue multiple uploads
 - [x] **UPLD-05**: User can cancel, pause, and resume individual uploads
 - [x] **UPLD-06**: Upload wizard guides first-time users through repo selection, file selection, and upload
-- [ ] **UPLD-07**: Advanced mode supports drag-and-queue file uploads
-- [ ] **UPLD-08**: Advanced mode supports folder sync to HF repo
+- [x] **UPLD-07**: Advanced mode supports drag-and-queue file uploads
+- [x] **UPLD-08**: Advanced mode supports folder sync to HF repo
 - [ ] **UPLD-09**: Uploads continue in background with system tray presence
 - [x] **UPLD-10**: App handles both Xet CAS and legacy LFS upload protocols automatically
 
@@ -89,8 +89,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | UPLD-04 | Phase 2 | Complete |
 | UPLD-05 | Phase 2 | Complete |
 | UPLD-06 | Phase 3 | Complete |
-| UPLD-07 | Phase 3 | Pending |
-| UPLD-08 | Phase 3 | Pending |
+| UPLD-07 | Phase 3 | Complete |
+| UPLD-08 | Phase 3 | Complete |
 | UPLD-09 | Phase 4 | Pending |
 | UPLD-10 | Phase 2 | Complete |
 | REPO-01 | Phase 1 | Complete |
