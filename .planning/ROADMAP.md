@@ -63,7 +63,13 @@ Plans:
   3. User can sync a local folder to an HF repo — the app uploads only files that have changed
   4. User can create a new repo, browse its files, delete individual files, and delete the repo entirely from within the app
   5. User can view the commit history for a repo and roll back to a previous commit
-**Plans**: TBD
+**Plans**: 5 plans
+Plans:
+- [ ] 03-01-PLAN.md — Foundation: plugin-dialog, shadcn/ui, uploadStore, query hooks, repo commands, AppShell routing
+- [ ] 03-02-PLAN.md — Upload wizard (3-step flow) and CreateRepoSheet slide-out panel
+- [ ] 03-03-PLAN.md — Upload queue view, app-wide drag-and-drop, and folder sync
+- [ ] 03-04-PLAN.md — Repo file browser with hierarchical tree and file/repo deletion
+- [ ] 03-05-PLAN.md — Commit history timeline and revert/restore rollback
 
 ### Phase 4: Secondary Features + Distribution
 **Goal**: The app ships on all three platforms with OAuth login, dataset preview, and background upload support
@@ -86,7 +92,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 |-------|----------------|--------|-----------|
 | 1. Foundation | 3/3 | Complete   | 2026-03-19 |
 | 2. Upload Engine | 5/5 | Complete   | 2026-03-19 |
-| 3. Upload UI + Repo Management | 0/TBD | Not started | - |
+| 3. Upload UI + Repo Management | 0/5 | Not started | - |
 | 4. Secondary Features + Distribution | 0/TBD | Not started | - |
 
 ### Phase 5: E2E/UI Automated Testing
