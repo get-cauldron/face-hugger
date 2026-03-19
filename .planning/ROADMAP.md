@@ -81,7 +81,12 @@ Plans:
   3. User can preview dataset rows, column types, and statistics without leaving the app
   4. User can search and filter within a dataset preview
   5. Signed, notarized distribution artifacts build from CI for macOS (.dmg), Windows (installer), and Linux (.AppImage/.deb)
-**Plans**: TBD
+**Plans**: 4 plans
+Plans:
+- [ ] 04-01-PLAN.md — OAuth login flow: plugins, Rust PKCE commands, OAuth-first LoginScreen
+- [ ] 04-02-PLAN.md — Dataset preview: types, API hooks, paginated table, search/filter, column stats panel
+- [ ] 04-03-PLAN.md — System tray: close-to-tray, animated icon, dynamic menu, upload notifications
+- [ ] 04-04-PLAN.md — Distribution: GitHub Actions CI workflow, updater config, UpdateBanner component
 
 ## Progress
 
@@ -93,7 +98,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 | 1. Foundation | 3/3 | Complete   | 2026-03-19 |
 | 2. Upload Engine | 5/5 | Complete   | 2026-03-19 |
 | 3. Upload UI + Repo Management | 5/5 | Complete   | 2026-03-19 |
-| 4. Secondary Features + Distribution | 0/TBD | Not started | - |
+| 4. Secondary Features + Distribution | 0/4 | Not started | - |
 
 ### Phase 5: E2E/UI Automated Testing
 
