@@ -5,6 +5,7 @@ import ModelsPage from '../../routes/models/ModelsPage';
 import DatasetsPage from '../../routes/datasets/DatasetsPage';
 import SettingsPage from '../../routes/settings/SettingsPage';
 import UploadPage from '../../routes/upload/UploadPage';
+import RepoBrowserPage from '../../routes/repo-browser/RepoBrowserPage';
 
 type Section = 'models' | 'datasets' | 'settings' | 'upload' | 'repo-browser';
 
@@ -12,10 +13,12 @@ function ContentArea({
   section,
   selectedRepoId,
   selectedRepoType,
+  onBack,
 }: {
   section: Section;
   selectedRepoId: string | null;
   selectedRepoType: 'model' | 'dataset';
+  onBack: () => void;
 }) {
   switch (section) {
     case 'models':
@@ -27,16 +30,16 @@ function ContentArea({
     case 'upload':
       return <UploadPage />;
     case 'repo-browser':
-      return (
+      return selectedRepoId ? (
+        <RepoBrowserPage
+          repoId={selectedRepoId}
+          repoType={selectedRepoType}
+          onBack={onBack}
+        />
+      ) : (
         <div className="flex flex-col items-center justify-center h-full text-muted-foreground">
           <p className="text-lg font-medium">Repo Browser</p>
-          {selectedRepoId ? (
-            <p className="text-sm mt-1">
-              {selectedRepoType}: {selectedRepoId}
-            </p>
-          ) : (
-            <p className="text-sm mt-1">Select a repo to browse — coming in plan 03-04</p>
-          )}
+          <p className="text-sm mt-1">Select a repo from Models or Datasets to browse</p>
         </div>
       );
   }
@@ -51,6 +54,11 @@ export default function AppShell() {
     setSelectedRepoId(repoId);
     setSelectedRepoType(repoType);
     setActiveSection('repo-browser');
+  }
+
+  function handleBack() {
+    // Navigate back to the appropriate list based on repo type
+    setActiveSection(selectedRepoType === 'dataset' ? 'datasets' : 'models');
   }
 
   return (
@@ -69,6 +77,7 @@ export default function AppShell() {
             section={activeSection}
             selectedRepoId={selectedRepoId}
             selectedRepoType={selectedRepoType}
+            onBack={handleBack}
           />
         </main>
       </div>
