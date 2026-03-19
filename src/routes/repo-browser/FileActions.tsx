@@ -10,7 +10,6 @@ import {
   AlertDialogAction,
   AlertDialogCancel,
 } from '../../components/ui/alert-dialog';
-import { Button } from '../../components/ui/button';
 import { deleteFileAction, deleteRepoAction } from '../../commands/repos';
 
 // ─── DeleteFileDialog ──────────────────────────────────────────────────────────
@@ -69,14 +68,12 @@ export default function DeleteFileDialog({
           <AlertDialogCancel onClick={() => onOpenChange(false)}>
             Cancel
           </AlertDialogCancel>
-          <AlertDialogAction asChild>
-            <Button
-              variant="destructive"
-              onClick={handleDelete}
-              disabled={isPending}
-            >
-              {isPending ? 'Deleting...' : 'Delete'}
-            </Button>
+          <AlertDialogAction
+            variant="destructive"
+            onClick={handleDelete}
+            disabled={isPending}
+          >
+            {isPending ? 'Deleting...' : 'Delete'}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
@@ -169,14 +166,12 @@ export function DeleteRepoDialog({
           <AlertDialogCancel onClick={() => handleOpenChange(false)}>
             Cancel
           </AlertDialogCancel>
-          <AlertDialogAction asChild>
-            <Button
-              variant="destructive"
-              onClick={handleDelete}
-              disabled={!isConfirmed || isPending}
-            >
-              {isPending ? 'Deleting...' : 'Delete Repository'}
-            </Button>
+          <AlertDialogAction
+            variant="destructive"
+            onClick={handleDelete}
+            disabled={!isConfirmed || isPending}
+          >
+            {isPending ? 'Deleting...' : 'Delete Repository'}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
