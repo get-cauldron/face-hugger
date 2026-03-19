@@ -45,7 +45,13 @@ Plans:
   3. The upload engine correctly detects whether a repo uses Xet CAS or legacy LFS and routes accordingly
   4. Multiple uploads can be queued simultaneously; each can be paused, resumed, or cancelled individually
   5. Upload progress (bytes transferred, speed, ETA) is visible in the UI and updates smoothly without degrading upload throughput
-**Plans**: TBD
+**Plans**: 5 plans
+Plans:
+- [ ] 02-01-PLAN.md — Foundation: Cargo deps, SQLite DB + migration, upload types, module scaffolding
+- [ ] 02-02-PLAN.md — HF API layer: protocol detection (Xet/LFS), Xet CAS client, write-access check, commit API
+- [ ] 02-03-PLAN.md — Queue engine: concurrency control via Semaphore, CancellationToken registry, rayon file hasher
+- [ ] 02-04-PLAN.md — Upload workers: Xet + LFS pipelines with resume, token refresh, backoff
+- [ ] 02-05-PLAN.md — Progress reporting via Channel, Tauri commands, frontend TypeScript wrappers
 
 ### Phase 3: Upload UI + Repo Management
 **Goal**: Users can complete the full upload workflow through a guided UI and manage their repos and files end-to-end
@@ -79,7 +85,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation | 3/3 | Complete   | 2026-03-19 |
-| 2. Upload Engine | 0/TBD | Not started | - |
+| 2. Upload Engine | 0/5 | Not started | - |
 | 3. Upload UI + Repo Management | 0/TBD | Not started | - |
 | 4. Secondary Features + Distribution | 0/TBD | Not started | - |
 
