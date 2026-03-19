@@ -16,16 +16,16 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Uploads
 
-- [ ] **UPLD-01**: User can upload files to HF repos using chunked streaming (supports 1-100GB+)
+- [x] **UPLD-01**: User can upload files to HF repos using chunked streaming (supports 1-100GB+)
 - [ ] **UPLD-02**: Uploads resume automatically after network interruption
 - [ ] **UPLD-03**: User sees per-file progress bar with speed and ETA
-- [ ] **UPLD-04**: User can queue multiple uploads
+- [x] **UPLD-04**: User can queue multiple uploads
 - [ ] **UPLD-05**: User can cancel, pause, and resume individual uploads
 - [ ] **UPLD-06**: Upload wizard guides first-time users through repo selection, file selection, and upload
 - [ ] **UPLD-07**: Advanced mode supports drag-and-queue file uploads
 - [ ] **UPLD-08**: Advanced mode supports folder sync to HF repo
 - [ ] **UPLD-09**: Uploads continue in background with system tray presence
-- [ ] **UPLD-10**: App handles both Xet CAS and legacy LFS upload protocols automatically
+- [x] **UPLD-10**: App handles both Xet CAS and legacy LFS upload protocols automatically
 
 ### Repository Management
 
@@ -83,16 +83,16 @@ Which phases cover which requirements. Updated during roadmap creation.
 | AUTH-02 | Phase 1 | Complete |
 | AUTH-03 | Phase 4 | Pending |
 | AUTH-04 | Phase 1 | Complete |
-| UPLD-01 | Phase 2 | Pending |
+| UPLD-01 | Phase 2 | Complete |
 | UPLD-02 | Phase 2 | Pending |
 | UPLD-03 | Phase 2 | Pending |
-| UPLD-04 | Phase 2 | Pending |
+| UPLD-04 | Phase 2 | Complete |
 | UPLD-05 | Phase 2 | Pending |
 | UPLD-06 | Phase 3 | Pending |
 | UPLD-07 | Phase 3 | Pending |
 | UPLD-08 | Phase 3 | Pending |
 | UPLD-09 | Phase 4 | Pending |
-| UPLD-10 | Phase 2 | Pending |
+| UPLD-10 | Phase 2 | Complete |
 | REPO-01 | Phase 1 | Complete |
 | REPO-02 | Phase 3 | Pending |
 | REPO-03 | Phase 3 | Pending |
