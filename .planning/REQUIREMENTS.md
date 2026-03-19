@@ -38,9 +38,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Dataset Preview
 
-- [ ] **DATA-01**: User can preview dataset rows with schema information
-- [ ] **DATA-02**: User can view column statistics (counts, distributions, types)
-- [ ] **DATA-03**: User can search and filter within dataset preview
+- [x] **DATA-01**: User can preview dataset rows with schema information
+- [x] **DATA-02**: User can view column statistics (counts, distributions, types)
+- [x] **DATA-03**: User can search and filter within dataset preview
 
 ## v2 Requirements
 
@@ -99,9 +99,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | REPO-04 | Phase 3 | Complete |
 | REPO-05 | Phase 3 | Complete |
 | REPO-06 | Phase 3 | Complete |
-| DATA-01 | Phase 4 | Pending |
-| DATA-02 | Phase 4 | Pending |
-| DATA-03 | Phase 4 | Pending |
+| DATA-01 | Phase 4 | Complete |
+| DATA-02 | Phase 4 | Complete |
+| DATA-03 | Phase 4 | Complete |
 
 **Coverage:**
 - v1 requirements: 23 total

@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Completed 03-04-PLAN.md
-last_updated: "2026-03-19T18:29:13.821Z"
+stopped_at: Completed 04-02-PLAN.md
+last_updated: "2026-03-19T20:47:38.461Z"
 progress:
   total_phases: 5
   completed_phases: 3
-  total_plans: 13
-  completed_plans: 13
+  total_plans: 17
+  completed_plans: 14
 ---
 
 # Project State
@@ -19,12 +19,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-19)
 
 **Core value:** Uploading multi-GB files to Hugging Face should work reliably on flaky connections without babysitting — resumable, visible, and recoverable.
-**Current focus:** Phase 03 — upload-ui-repo-management
+**Current focus:** Phase 04 — secondary-features-distribution
 
 ## Current Position
 
-Phase: 03 (upload-ui-repo-management) — EXECUTING
-Plan: 3 of 5
+Phase: 04 (secondary-features-distribution) — EXECUTING
+Plan: 1 of 4
 
 ## Performance Metrics
 
@@ -59,6 +59,7 @@ Plan: 3 of 5
 | Phase 03-upload-ui-repo-management P05 | 8min | 2 tasks | 6 files |
 | Phase 03-upload-ui-repo-management P03 | 5min | 2 tasks | 8 files |
 | Phase 03-upload-ui-repo-management P04 | 3min | 2 tasks | 8 files |
+| Phase 04-secondary-features-distribution P02 | 5min | 3 tasks | 8 files |
 
 ## Accumulated Context
 
@@ -111,6 +112,8 @@ Recent decisions affecting current work:
 - [Phase 03-upload-ui-repo-management]: FolderSync uses file size as change detection heuristic — no hash comparison needed for initial sync UX
 - [Phase 03-upload-ui-repo-management]: FileActions default export is DeleteFileDialog; DeleteRepoDialog is named export — mirrors usage pattern at import sites
 - [Phase 03-upload-ui-repo-management]: onRepoSelect callback threaded AppShell → ContentArea → ModelsPage/DatasetsPage; handleRepoClick calls onRepoSelect after writing recent preference
+- [Phase 04-secondary-features-distribution]: Dataset query priority: search > filter > plain rows when multiple modes active
+- [Phase 04-secondary-features-distribution]: ColumnStatPanel toggle: clicking same column header closes the stat panel
 
 ### Pending Todos
 
@@ -124,6 +127,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-19T18:24:42.812Z
-Stopped at: Completed 03-04-PLAN.md
+Last session: 2026-03-19T20:47:38.458Z
+Stopped at: Completed 04-02-PLAN.md
 Resume file: None
