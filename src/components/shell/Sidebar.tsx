@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { UploadCloud, Box, Database, Settings } from 'lucide-react';
 import UserBadge from './UserBadge';
+import { getPreference } from '../../lib/preferences';
 
 interface SidebarProps {
+  activeSection?: string;
   onSectionChange?: (section: string) => void;
 }
 
@@ -17,13 +19,43 @@ const navItemActive =
 const sectionHeader =
   'text-xs uppercase tracking-wider text-[var(--color-muted-foreground)] px-3 pt-4 pb-1';
 
-export default function Sidebar({ onSectionChange }: SidebarProps) {
-  const [activeSection, setActiveSection] = useState<Section>('models');
+export default function Sidebar({ activeSection: activeSectionProp, onSectionChange }: SidebarProps) {
+  const [activeSection, setActiveSection] = useState<Section>(
+    (activeSectionProp as Section) ?? 'models'
+  );
+  const [recentModels, setRecentModels] = useState<string[]>([]);
+  const [recentDatasets, setRecentDatasets] = useState<string[]>([]);
+
+  // Sync activeSection from parent
+  useEffect(() => {
+    if (activeSectionProp) {
+      setActiveSection(activeSectionProp as Section);
+    }
+  }, [activeSectionProp]);
+
+  // Load recent repos from preferences
+  useEffect(() => {
+    async function loadRecent() {
+      const [models, datasets] = await Promise.all([
+        getPreference<string[]>('recentModels', []),
+        getPreference<string[]>('recentDatasets', []),
+      ]);
+      setRecentModels(models);
+      setRecentDatasets(datasets);
+    }
+    loadRecent();
+  }, []);
 
   const handleSectionChange = (section: Section) => {
     setActiveSection(section);
     onSectionChange?.(section);
   };
+
+  // Show only repo short name (after the '/')
+  function shortName(repoId: string): string {
+    const parts = repoId.split('/');
+    return parts.length > 1 ? parts.slice(1).join('/') : repoId;
+  }
 
   return (
     <aside className="w-60 flex flex-col h-[calc(100vh-40px)] bg-[var(--color-sidebar)] border-r border-[var(--color-sidebar-border)]">
@@ -51,10 +83,16 @@ export default function Sidebar({ onSectionChange }: SidebarProps) {
             <Box className="w-4 h-4 flex-shrink-0" />
             <span>Models</span>
           </button>
-          {/* Recent placeholder */}
-          <div className="px-5 py-1">
-            <p className="text-xs text-[var(--color-muted-foreground)] italic">No recent models</p>
-          </div>
+          {/* Recent models */}
+          {recentModels.slice(0, 5).map((repoId) => (
+            <div
+              key={repoId}
+              className="text-xs text-[var(--color-muted-foreground)] pl-8 py-1 hover:text-[var(--color-foreground)] cursor-pointer truncate mx-2 rounded"
+              title={repoId}
+            >
+              {shortName(repoId)}
+            </div>
+          ))}
         </div>
 
         {/* Datasets section */}
@@ -67,10 +105,16 @@ export default function Sidebar({ onSectionChange }: SidebarProps) {
             <Database className="w-4 h-4 flex-shrink-0" />
             <span>Datasets</span>
           </button>
-          {/* Recent placeholder */}
-          <div className="px-5 py-1">
-            <p className="text-xs text-[var(--color-muted-foreground)] italic">No recent datasets</p>
-          </div>
+          {/* Recent datasets */}
+          {recentDatasets.slice(0, 5).map((repoId) => (
+            <div
+              key={repoId}
+              className="text-xs text-[var(--color-muted-foreground)] pl-8 py-1 hover:text-[var(--color-foreground)] cursor-pointer truncate mx-2 rounded"
+              title={repoId}
+            >
+              {shortName(repoId)}
+            </div>
+          ))}
         </div>
 
         {/* Settings section */}
