@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+@theme {
+  /* Dark theme — warm orange accent on dark background */
+  --color-background: oklch(0.13 0.01 240);
+  --color-foreground: oklch(0.96 0.01 240);
+  --color-card: oklch(0.16 0.01 240);
+  --color-card-foreground: oklch(0.96 0.01 240);
+  --color-popover: oklch(0.16 0.01 240);
+  --color-popover-foreground: oklch(0.96 0.01 240);
+  --color-primary: oklch(0.72 0.19 45);
+  --color-primary-foreground: oklch(0.13 0.01 240);
+  --color-secondary: oklch(0.20 0.01 240);
+  --color-secondary-foreground: oklch(0.96 0.01 240);
+  --color-muted: oklch(0.20 0.01 240);
+  --color-muted-foreground: oklch(0.60 0.01 240);
+  --color-accent: oklch(0.72 0.19 45);
+  --color-accent-foreground: oklch(0.13 0.01 240);
+  --color-destructive: oklch(0.60 0.25 25);
+  --color-destructive-foreground: oklch(0.96 0.01 240);
+  --color-border: oklch(0.25 0.01 240);
+  --color-input: oklch(0.25 0.01 240);
+  --color-ring: oklch(0.72 0.19 45);
+  --color-sidebar: oklch(0.11 0.01 240);
+  --color-sidebar-foreground: oklch(0.90 0.01 240);
+  --color-sidebar-border: oklch(0.20 0.01 240);
+  --radius: 0.75rem;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  overflow: hidden;
+}
+
+/* Prevent text selection on drag regions */
+[data-tauri-drag-region] {
+  -webkit-user-select: none;
+  user-select: none;
+}
