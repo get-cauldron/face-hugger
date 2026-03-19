@@ -98,14 +98,14 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 | 1. Foundation | 3/3 | Complete   | 2026-03-19 |
 | 2. Upload Engine | 5/5 | Complete   | 2026-03-19 |
 | 3. Upload UI + Repo Management | 5/5 | Complete   | 2026-03-19 |
-| 4. Secondary Features + Distribution | 2/4 | In Progress|  |
+| 4. Secondary Features + Distribution | 3/4 | In Progress|  |
 
 ### Phase 5: E2E/UI Automated Testing
 
 **Goal:** [To be planned]
 **Requirements**: TBD
 **Depends on:** Phase 4
-**Plans:** 2/4 plans executed
+**Plans:** 3/4 plans executed
 
 Plans:
 - [ ] TBD (run /gsd:plan-phase 5 to break down)

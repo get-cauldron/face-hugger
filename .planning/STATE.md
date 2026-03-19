@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Completed 04-01-PLAN.md
-last_updated: "2026-03-19T20:48:34.561Z"
+stopped_at: Completed 04-03-PLAN.md
+last_updated: "2026-03-19T21:16:00.000Z"
 progress:
   total_phases: 5
   completed_phases: 3
   total_plans: 17
-  completed_plans: 15
+  completed_plans: 16
 ---
 
 # Project State
@@ -24,7 +24,7 @@ See: .planning/PROJECT.md (updated 2026-03-19)
 ## Current Position
 
 Phase: 04 (secondary-features-distribution) — EXECUTING
-Plan: 2 of 4
+Plan: 3 of 4
 
 ## Performance Metrics
 
@@ -61,6 +61,7 @@ Plan: 2 of 4
 | Phase 03-upload-ui-repo-management P04 | 3min | 2 tasks | 8 files |
 | Phase 04-secondary-features-distribution P02 | 5min | 3 tasks | 8 files |
 | Phase 04-secondary-features-distribution P01 | 5min | 2 tasks | 11 files |
+| Phase 04-secondary-features-distribution P03 | 6min | 2 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -119,6 +120,10 @@ Recent decisions affecting current work:
 - [Phase 04-secondary-features-distribution]: OAuth token stored in same face-hugger/hf-token keyring entry as paste tokens — unified storage so check_existing_token works for both auth paths
 - [Phase 04-secondary-features-distribution]: Frontend calls getStoredToken() after oauthExchangeCode returns UserInfo — token not in return value; fetched from Rust keyring state for zustand store
 - [Phase 04-secondary-features-distribution]: tauri-plugin-oauth uses localhost HTTP redirect — no deep-link scheme registration needed; resolves Phase 4 blocker noted in STATE.md
+- [Phase 04-secondary-features-distribution]: Tray menu updates wired into progress emitter (progress.rs) at 500ms cadence — avoids a separate polling loop
+- [Phase 04-secondary-features-distribution]: try_start_next takes Option<AppHandle> — preserves testability (pass None) while enabling notifications in production (pass Some(app))
+- [Phase 04-secondary-features-distribution]: tray-pause-all handled in Rust setup hook via app.listen — pause works when main window is hidden (no frontend JS required)
+- [Phase 04-secondary-features-distribution]: Tray animation uses tooltip toggle — per-frame PNG embed deferred; tooltip provides functional activity signal without frame asset files
 
 ### Pending Todos
 
@@ -132,6 +137,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-19T20:48:34.559Z
-Stopped at: Completed 04-01-PLAN.md
+Last session: 2026-03-19T21:16:00Z
+Stopped at: Completed 04-03-PLAN.md
 Resume file: None
