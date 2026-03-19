@@ -33,7 +33,7 @@ Declared values (must be multiples of 4):
 
 | Token | Value | Usage |
 |-------|-------|-------|
-| xs | 4px | Icon gaps, type badge padding (px-1.5 py-0.5) |
+| xs | 4px | Icon gaps, type badge padding (`px-1 py-0`) |
 | sm | 8px | Compact element spacing, tab bar gap |
 | md | 16px | Default element spacing, table cell padding |
 | lg | 24px | Section padding, card interior |
@@ -46,6 +46,8 @@ Exceptions:
 - Dataset table rows: 40px row height for data density (multiple of 4, between md and xl)
 - Column stat side panel width: 320px fixed (40 * 8 grid unit)
 
+Type badge padding: `px-1 py-0` (4px horizontal, 0px vertical). The 2px vertical padding (`py-0.5`) used previously is not on the 4-grid and is dropped in favor of line-height providing sufficient visual breathing room at 12px/1.4 label size.
+
 Source: 8-point scale established in Phase 1/3; exceptions are defaults for this phase.
 
 ---
@@ -55,15 +57,17 @@ Source: 8-point scale established in Phase 1/3; exceptions are defaults for this
 | Role | Size | Weight | Line Height |
 |------|------|--------|-------------|
 | Body | 14px | 400 (regular) | 1.5 |
-| Label | 12px | 500 (medium) | 1.4 |
+| Label | 12px | 400 (regular) | 1.4 |
 | Heading | 20px | 600 (semibold) | 1.2 |
-| Display | 28px | 700 (bold) | 1.1 |
+| Display | 28px | 600 (semibold) | 1.1 |
 
 Notes:
 - Body (14px/400) used for: dataset table cell values, tray menu descriptions, OAuth waiting message
-- Label (12px/500) used for: column type badges, pagination counts, table column headers, update banner version string
+- Label (12px/400) used for: column type badges, pagination counts, table column headers, update banner version string
 - Heading (20px/600) used for: dataset preview section title, OAuth screen heading ("Sign in to Face Hugger")
-- Display (28px/700) not introduced as new surface in Phase 4 — inherited from existing login screen h1
+- Display (28px/600) not introduced as new surface in Phase 4 — inherited from existing login screen h1
+
+Weight rationale: Collapsed from 4 weights (400/500/600/700) to 2. Weight 500 (medium) merged into 400 — the visual distinction between 400 and 500 at 12px label size is negligible. Weight 700 (bold) merged into 600 — Display text at 28px reads clearly at semibold without requiring bold.
 
 Source: Inferred from existing `LoginScreen.tsx` (`text-2xl font-bold`), `RepoBrowserPage.tsx` (`text-lg font-semibold`), and `text-sm` labels throughout Phase 3 components.
 
@@ -122,7 +126,7 @@ Every new UI surface introduced in Phase 4:
 | State | What user sees |
 |-------|---------------|
 | Default | Face Hugger icon + "Sign in to Face Hugger" heading + primary "Sign in with Hugging Face" OAuth button + small "Use access token instead" text link below |
-| Waiting for browser | Spinner (Lucide `Loader2` animated) + "Waiting for browser login..." body text + secondary "Cancel" button |
+| Waiting for browser | Spinner (Lucide `Loader2` animated) + "Waiting for browser login..." body text + secondary "Cancel Sign-in" button |
 | OAuth error | Red inline error under the card heading + "Try again" link that resets to Default state |
 | Token fallback | Existing token paste form slides in below — same layout as current LoginScreen |
 
@@ -138,17 +142,19 @@ Every new UI surface introduced in Phase 4:
 
 **Layout:** Full-height flex column within existing tab content area.
 
+**Primary visual anchor:** The scrollable table body is the focal point of this surface. All toolbar controls (search bar, split selector, filter dropdowns) are subordinate and positioned in a single compact row above the table. The table occupies the maximum available height; the toolbar row and pagination footer are fixed-height so they do not compete for attention.
+
 **Sub-components:**
 
 - **Split selector** (`Select` from shadcn): appears if dataset has multiple configs/splits. Label: "Split:". Positioned above table, right-aligned with search bar.
 - **Search bar** (`Input` from shadcn): left side of toolbar row above table. Placeholder: "Search rows...". Width: 280px. Lucide `Search` icon inside input left side.
 - **Filter dropdowns**: per-column, revealed via column header click on string/class columns. Uses shadcn `Select` or custom dropdown — Excel-style with value list.
 - **Table** (`Table` from shadcn): fixed header, scrollable body. Column width: equal distribution unless values are truncated (max 240px per column).
-- **Column header badge**: `Badge` component, 10px text, muted background (`bg-secondary`), colored text per type. Colors: string=blue-ish `text-blue-400`, int=amber `text-amber-400`, float=amber `text-amber-400`, bool=green `text-green-400`, other=`text-muted-foreground`.
+- **Column header badge**: `Badge` component, 10px text, muted background (`bg-secondary`), colored text per type. Badge padding: `px-1 py-0`. Colors: string=blue-ish `text-blue-400`, int=amber `text-amber-400`, float=amber `text-amber-400`, bool=green `text-green-400`, other=`text-muted-foreground`.
 - **Row count footer**: "Rows {start}–{end} of {total}" + pagination prev/next buttons. 14px, `text-muted-foreground`.
 - **Search highlight**: matched substring wrapped in `<mark className="bg-primary/20 text-primary rounded-sm px-0.5">`.
 
-**Column stat side panel**: slides in from right edge of preview area (not full-screen sheet). Width 320px. `bg-card border-l border-border`. Shows: column name heading, type badge, null count, min/max, mean, unique count, and a `recharts BarChart` histogram (if numeric/class). Close via X button top-right.
+**Column stat side panel**: slides in from right edge of preview area (not full-screen sheet). Width 320px. `bg-card border-l border-border`. Shows: column name heading, type badge, null count, min/max, mean, unique count, and a `recharts BarChart` histogram (if numeric/class). Close via X button top-right with `aria-label="Close statistics panel"`.
 
 **Loading state:** `Skeleton` rows — 8 rows × full table width, 40px height each, `animate-pulse`.
 
@@ -181,7 +187,7 @@ Every new UI surface introduced in Phase 4:
 | OAuth primary CTA | "Sign in with Hugging Face" |
 | OAuth waiting state heading | "Waiting for browser login..." |
 | OAuth waiting state body | "Complete sign-in in your browser, then return here." |
-| OAuth cancel button | "Cancel" |
+| OAuth cancel button | "Cancel Sign-in" |
 | OAuth error state | "Sign-in failed — try again or use an access token instead." |
 | "Use token instead" link | "Use access token instead" |
 | Preview tab label | "Preview" |
@@ -215,8 +221,8 @@ No destructive actions introduced in Phase 4. The tray "Quit" action quits witho
 ### OAuth Flow
 
 1. User is on LoginScreen. If no token exists in keyring, screen shows OAuth-first layout.
-2. Click "Sign in with Hugging Face" → button enters disabled+loading state immediately (prevent double-click). Browser opens HF OAuth page. Screen transitions to waiting state (spinner + waiting copy + Cancel button).
-3. Waiting state: Cancel button is `variant="secondary"`, full-width. Clicking Cancel calls `oauth_cancel` command, returns to Default state.
+2. Click "Sign in with Hugging Face" → button enters disabled+loading state immediately (prevent double-click). Browser opens HF OAuth page. Screen transitions to waiting state (spinner + waiting copy + "Cancel Sign-in" button).
+3. Waiting state: "Cancel Sign-in" button is `variant="secondary"`, full-width. Clicking it calls `oauth_cancel` command, returns to Default state.
 4. On success callback: spinner disappears, green CheckCircle flashes (same success flash as existing token auth), then transitions to app shell.
 5. On failure: waiting state shows error copy in red `text-destructive` below spinner. "Try again" link resets to Default state.
 
