@@ -1,4 +1,5 @@
 use serde::{Deserialize, Serialize};
+use specta::Type;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize, specta::Type)]
 #[serde(rename_all = "snake_case")]
@@ -76,7 +77,7 @@ impl UploadProtocol {
     }
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize, specta::Type)]
+#[derive(Debug, Clone, Serialize, Deserialize, Type)]
 pub struct UploadJob {
     pub id: String,
     pub file_path: String,
@@ -85,7 +86,9 @@ pub struct UploadJob {
     pub repo_type: String,
     pub revision: String,
     pub commit_message: String,
+    #[specta(type = f64)]
     pub total_bytes: u64,
+    #[specta(type = f64)]
     pub bytes_confirmed: u64,
     pub protocol: Option<UploadProtocol>,
     pub state: UploadJobState,
@@ -96,10 +99,12 @@ pub struct UploadJob {
     pub updated_at: i64,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize, specta::Type)]
+#[derive(Debug, Clone, Serialize, Deserialize, Type)]
 pub struct UploadProgress {
     pub job_id: String,
+    #[specta(type = f64)]
     pub bytes_sent: u64,
+    #[specta(type = f64)]
     pub total_bytes: u64,
     pub speed_bps: f64,
     pub eta_seconds: f64,
