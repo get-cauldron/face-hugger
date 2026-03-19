@@ -29,7 +29,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Repository Management
 
-- [ ] **REPO-01**: User can browse their HF repos (models and datasets)
+- [x] **REPO-01**: User can browse their HF repos (models and datasets)
 - [ ] **REPO-02**: User can create new repos (model or dataset)
 - [ ] **REPO-03**: User can browse files within a repo
 - [ ] **REPO-04**: User can delete files and repos
@@ -93,7 +93,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | UPLD-08 | Phase 3 | Pending |
 | UPLD-09 | Phase 4 | Pending |
 | UPLD-10 | Phase 2 | Pending |
-| REPO-01 | Phase 1 | Pending |
+| REPO-01 | Phase 1 | Complete |
 | REPO-02 | Phase 3 | Pending |
 | REPO-03 | Phase 3 | Pending |
 | REPO-04 | Phase 3 | Pending |

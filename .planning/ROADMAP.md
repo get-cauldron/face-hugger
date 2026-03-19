@@ -12,7 +12,7 @@ Face Hugger ships in four phases that match the natural dependency order of a Ta
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Foundation** - Tauri app with auth, OS keychain storage, and type-safe IPC scaffold
+- [x] **Phase 1: Foundation** - Tauri app with auth, OS keychain storage, and type-safe IPC scaffold (completed 2026-03-19)
 - [ ] **Phase 2: Upload Engine** - Rust upload engine with Xet/LFS protocol detection, resumable chunked uploads, and SQLite-backed queue state
 - [ ] **Phase 3: Upload UI + Repo Management** - Upload wizard, queue view, and full repository browser/CRUD
 - [ ] **Phase 4: Secondary Features + Distribution** - OAuth login, dataset preview, background uploads, signed distribution artifacts
@@ -78,7 +78,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 2/3 | In Progress|  |
+| 1. Foundation | 3/3 | Complete   | 2026-03-19 |
 | 2. Upload Engine | 0/TBD | Not started | - |
 | 3. Upload UI + Repo Management | 0/TBD | Not started | - |
 | 4. Secondary Features + Distribution | 0/TBD | Not started | - |
@@ -88,7 +88,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 **Goal:** [To be planned]
 **Requirements**: TBD
 **Depends on:** Phase 4
-**Plans:** 2/3 plans executed
+**Plans:** 3/3 plans complete
 
 Plans:
 - [ ] TBD (run /gsd:plan-phase 5 to break down)

@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Completed 01-foundation-02-PLAN.md
-last_updated: "2026-03-19T15:08:45.245Z"
+stopped_at: "Checkpoint: Task 2 human-verify - 01-03-PLAN.md"
+last_updated: "2026-03-19T15:20:34.907Z"
 progress:
   total_phases: 5
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 3
-  completed_plans: 2
+  completed_plans: 3
 ---
 
 # Project State
@@ -48,6 +48,7 @@ Plan: 2 of 3
 *Updated after each plan completion*
 | Phase 01-foundation P01 | 16min | 3 tasks | 22 files |
 | Phase 01-foundation P02 | 7min | 3 tasks | 16 files |
+| Phase 01-foundation P03 | 20 | 2 tasks | 13 files |
 
 ## Accumulated Context
 
@@ -70,6 +71,8 @@ Recent decisions affecting current work:
 - [Phase 01-foundation]: types.ts UserInfo uses 'type' not 'user_type' — matches bindings.ts which serializes Rust field as 'type'
 - [Phase 01-foundation]: Tailwind v4 requires @tailwindcss/vite Vite plugin; CSS @import alone insufficient — added plugin to vite.config.ts
 - [Phase 01-foundation]: Section-based routing in AppShell via local state — no React Router needed for 3-4 view desktop app
+- [Phase 01-foundation]: additionalFields: ['tags'] only in listModels/listDatasets — private/downloads/likes/lastModified are already in base ModelEntry
+- [Phase 01-foundation]: Use openUrl() from @tauri-apps/plugin-opener (not open())
 
 ### Pending Todos
 
@@ -83,6 +86,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-19T15:08:45.243Z
-Stopped at: Completed 01-foundation-02-PLAN.md
+Last session: 2026-03-19T15:20:34.905Z
+Stopped at: Checkpoint: Task 2 human-verify - 01-03-PLAN.md
 Resume file: None
