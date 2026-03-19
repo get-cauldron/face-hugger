@@ -6,7 +6,6 @@ import { type FileEntry } from './StepFilePicker';
 import StepRepoPicker from './StepRepoPicker';
 import StepFilePicker from './StepFilePicker';
 import StepReview from './StepReview';
-import CreateRepoSheet from '../../../components/repos/CreateRepoSheet';
 
 const STEPS = [
   { label: 'Select Repo' },
@@ -23,7 +22,6 @@ export default function UploadWizard({ onComplete }: UploadWizardProps) {
   const [selectedRepo, setSelectedRepo] = useState<RepoItem | null>(null);
   const [files, setFiles] = useState<FileEntry[]>([]);
   const [commitMessage, setCommitMessage] = useState('');
-  const [createSheetOpen, setCreateSheetOpen] = useState(false);
 
   function canAdvance(): boolean {
     if (currentStep === 1) return selectedRepo !== null;
@@ -42,22 +40,6 @@ export default function UploadWizard({ onComplete }: UploadWizardProps) {
     if (currentStep > 1) {
       setCurrentStep((s) => s - 1);
     }
-  }
-
-  function handleRepoCreated(repoId: string, repoType: 'model' | 'dataset') {
-    // Auto-select the newly created repo
-    setSelectedRepo({
-      id: repoId,
-      name: repoId.split('/').pop() ?? repoId,
-      owner: repoId.split('/')[0] ?? '',
-      private: false,
-      downloads: 0,
-      lastModified: new Date().toISOString(),
-      tags: [],
-      likes: 0,
-      type: repoType,
-    });
-    setCreateSheetOpen(false);
   }
 
   function handleUploadComplete() {
@@ -120,7 +102,6 @@ export default function UploadWizard({ onComplete }: UploadWizardProps) {
           <StepRepoPicker
             selectedRepo={selectedRepo}
             onSelect={setSelectedRepo}
-            onCreateNew={() => setCreateSheetOpen(true)}
           />
         )}
         {currentStep === 2 && (
@@ -168,13 +149,6 @@ export default function UploadWizard({ onComplete }: UploadWizardProps) {
           </Button>
         </div>
       )}
-
-      {/* CreateRepoSheet */}
-      <CreateRepoSheet
-        open={createSheetOpen}
-        onOpenChange={setCreateSheetOpen}
-        onCreated={handleRepoCreated}
-      />
     </div>
   );
 }

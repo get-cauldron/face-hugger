@@ -5,6 +5,9 @@ import RepoGrid from '../../components/repos/RepoGrid';
 import RepoTable from '../../components/repos/RepoTable';
 import RepoListToolbar, { type ViewMode, type SortBy, type FilterVisibility } from '../../components/repos/RepoListToolbar';
 import RepoEmptyState from '../../components/repos/RepoEmptyState';
+import CreateRepoSheet from '../../components/repos/CreateRepoSheet';
+import { Button } from '../../components/ui/button';
+import { Plus } from 'lucide-react';
 
 function SkeletonCard() {
   return (
@@ -20,6 +23,7 @@ export default function ModelsPage() {
   const [sortBy, setSortBy] = useState<SortBy>('lastModified');
   const [filterVisibility, setFilterVisibility] = useState<FilterVisibility>('all');
   const [prefsLoaded, setPrefsLoaded] = useState(false);
+  const [createSheetOpen, setCreateSheetOpen] = useState(false);
 
   // Load preferences on mount
   useEffect(() => {
@@ -94,7 +98,19 @@ export default function ModelsPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-foreground mb-4">Models</h1>
+      <div className="flex items-center justify-between mb-4">
+        <h1 className="text-2xl font-bold text-foreground">Models</h1>
+        <Button size="sm" onClick={() => setCreateSheetOpen(true)}>
+          <Plus className="w-3.5 h-3.5 mr-1.5" />
+          New Repository
+        </Button>
+      </div>
+
+      <CreateRepoSheet
+        open={createSheetOpen}
+        onOpenChange={setCreateSheetOpen}
+        defaultType="model"
+      />
 
       <RepoListToolbar
         searchQuery={searchQuery}

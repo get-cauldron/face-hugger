@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useModels, useDatasets, type RepoItem } from '../../../queries/useRepos';
 import { Button } from '../../../components/ui/button';
+import CreateRepoSheet from '../../../components/repos/CreateRepoSheet';
 import { Plus, Search } from 'lucide-react';
 
 type FilterTab = 'all' | 'models' | 'datasets';
@@ -8,16 +9,15 @@ type FilterTab = 'all' | 'models' | 'datasets';
 interface StepRepoPickerProps {
   selectedRepo: RepoItem | null;
   onSelect: (repo: RepoItem) => void;
-  onCreateNew: () => void;
 }
 
 export default function StepRepoPicker({
   selectedRepo,
   onSelect,
-  onCreateNew,
 }: StepRepoPickerProps) {
   const [filter, setFilter] = useState<FilterTab>('all');
   const [searchQuery, setSearchQuery] = useState('');
+  const [sheetOpen, setSheetOpen] = useState(false);
 
   const { data: models = [], isPending: modelsLoading } = useModels();
   const { data: datasets = [], isPending: datasetsLoading } = useDatasets();
@@ -32,6 +32,22 @@ export default function StepRepoPicker({
   );
 
   const isLoading = modelsLoading || datasetsLoading;
+
+  function handleRepoCreated(repoId: string, repoType: 'model' | 'dataset') {
+    // Auto-select the newly created repo
+    onSelect({
+      id: repoId,
+      name: repoId.split('/').pop() ?? repoId,
+      owner: repoId.split('/')[0] ?? '',
+      private: false,
+      downloads: 0,
+      lastModified: new Date().toISOString(),
+      tags: [],
+      likes: 0,
+      type: repoType,
+    });
+    setSheetOpen(false);
+  }
 
   return (
     <div className="flex flex-col gap-3 h-full">
@@ -67,7 +83,7 @@ export default function StepRepoPicker({
         </div>
 
         {/* Create New button */}
-        <Button size="sm" variant="outline" onClick={onCreateNew}>
+        <Button size="sm" variant="outline" onClick={() => setSheetOpen(true)}>
           <Plus className="w-3.5 h-3.5 mr-1" />
           New Repo
         </Button>
@@ -87,7 +103,7 @@ export default function StepRepoPicker({
           <div className="flex flex-col items-center justify-center flex-1 text-muted-foreground py-8">
             <p className="text-sm">No repositories found</p>
             <button
-              onClick={onCreateNew}
+              onClick={() => setSheetOpen(true)}
               className="text-primary text-sm mt-1 hover:underline"
             >
               Create your first repository
@@ -140,6 +156,13 @@ export default function StepRepoPicker({
           {allRepos.length} repo{allRepos.length !== 1 ? 's' : ''}
         </p>
       )}
+
+      {/* CreateRepoSheet */}
+      <CreateRepoSheet
+        open={sheetOpen}
+        onOpenChange={setSheetOpen}
+        onCreated={handleRepoCreated}
+      />
     </div>
   );
 }
