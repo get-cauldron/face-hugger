@@ -3,6 +3,7 @@ import { useRepoFiles } from '../../queries/useRepoFiles';
 import CommitTimeline from './CommitTimeline';
 import FileTree from './FileTree';
 import { DeleteRepoDialog } from './FileActions';
+import DatasetPreview from './preview/DatasetPreview';
 
 interface RepoBrowserPageProps {
   repoId: string;
@@ -10,7 +11,7 @@ interface RepoBrowserPageProps {
   onBack: () => void;
 }
 
-type Tab = 'files' | 'history';
+type Tab = 'files' | 'history' | 'preview';
 
 export default function RepoBrowserPage({ repoId, repoType, onBack }: RepoBrowserPageProps) {
   const [activeTab, setActiveTab] = useState<Tab>('files');
@@ -64,6 +65,18 @@ export default function RepoBrowserPage({ repoId, repoType, onBack }: RepoBrowse
         >
           History
         </button>
+        {repoType === 'dataset' && (
+          <button
+            onClick={() => setActiveTab('preview')}
+            className={`px-4 py-2 text-sm font-medium transition-colors cursor-pointer border-b-2 -mb-px ${
+              activeTab === 'preview'
+                ? 'border-primary text-foreground'
+                : 'border-transparent text-muted-foreground hover:text-foreground'
+            }`}
+          >
+            Preview
+          </button>
+        )}
       </div>
 
       {/* Tab content */}
@@ -97,6 +110,9 @@ export default function RepoBrowserPage({ repoId, repoType, onBack }: RepoBrowse
         )}
         {activeTab === 'history' && (
           <CommitTimeline repoId={repoId} repoType={repoType} />
+        )}
+        {activeTab === 'preview' && repoType === 'dataset' && (
+          <DatasetPreview repoId={repoId} />
         )}
       </div>
 
