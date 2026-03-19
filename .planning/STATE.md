@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Completed 01-foundation-01-PLAN.md
-last_updated: "2026-03-19T14:55:03.040Z"
+stopped_at: Completed 01-foundation-02-PLAN.md
+last_updated: "2026-03-19T15:08:45.245Z"
 progress:
   total_phases: 5
   completed_phases: 0
   total_plans: 3
-  completed_plans: 1
+  completed_plans: 2
 ---
 
 # Project State
@@ -47,6 +47,7 @@ Plan: 2 of 3
 
 *Updated after each plan completion*
 | Phase 01-foundation P01 | 16min | 3 tasks | 22 files |
+| Phase 01-foundation P02 | 7min | 3 tasks | 16 files |
 
 ## Accumulated Context
 
@@ -66,6 +67,9 @@ Recent decisions affecting current work:
 - [Phase 01-foundation]: Remove explicit specta version pin — tauri-specta rc.21 requires specta rc.22 internally
 - [Phase 01-foundation]: Use /api/whoami-v2 exclusively — v1 returns 401 for modern HF fine-grained tokens
 - [Phase 01-foundation]: Hand-authored src/bindings.ts so Plan 02 can import typed commands without running the app
+- [Phase 01-foundation]: types.ts UserInfo uses 'type' not 'user_type' — matches bindings.ts which serializes Rust field as 'type'
+- [Phase 01-foundation]: Tailwind v4 requires @tailwindcss/vite Vite plugin; CSS @import alone insufficient — added plugin to vite.config.ts
+- [Phase 01-foundation]: Section-based routing in AppShell via local state — no React Router needed for 3-4 view desktop app
 
 ### Pending Todos
 
@@ -79,6 +83,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-19T14:55:03.038Z
-Stopped at: Completed 01-foundation-01-PLAN.md
+Last session: 2026-03-19T15:08:45.243Z
+Stopped at: Completed 01-foundation-02-PLAN.md
 Resume file: None
