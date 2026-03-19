@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Completed 03-03-PLAN.md
-last_updated: "2026-03-19T18:19:17.779Z"
+stopped_at: Completed 03-04-PLAN.md
+last_updated: "2026-03-19T18:24:42.814Z"
 progress:
   total_phases: 5
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 13
-  completed_plans: 12
+  completed_plans: 13
 ---
 
 # Project State
@@ -58,6 +58,7 @@ Plan: 3 of 5
 | Phase 03-upload-ui-repo-management P02 | 6min | 2 tasks | 9 files |
 | Phase 03-upload-ui-repo-management P05 | 8min | 2 tasks | 6 files |
 | Phase 03-upload-ui-repo-management P03 | 5min | 2 tasks | 8 files |
+| Phase 03-upload-ui-repo-management P04 | 3min | 2 tasks | 8 files |
 
 ## Accumulated Context
 
@@ -108,6 +109,8 @@ Recent decisions affecting current work:
 - [Phase 03-upload-ui-repo-management]: Restore uses same squash-forward commit logic as Revert; destructive appearance via red button + typed-name confirmation gate
 - [Phase 03-upload-ui-repo-management]: onDragDropEvent from @tauri-apps/api/webview used for OS drag-and-drop — HTML5 ondrop does not fire for OS file drops in Tauri on macOS/Linux
 - [Phase 03-upload-ui-repo-management]: FolderSync uses file size as change detection heuristic — no hash comparison needed for initial sync UX
+- [Phase 03-upload-ui-repo-management]: FileActions default export is DeleteFileDialog; DeleteRepoDialog is named export — mirrors usage pattern at import sites
+- [Phase 03-upload-ui-repo-management]: onRepoSelect callback threaded AppShell → ContentArea → ModelsPage/DatasetsPage; handleRepoClick calls onRepoSelect after writing recent preference
 
 ### Pending Todos
 
@@ -121,6 +124,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-19T18:19:17.777Z
-Stopped at: Completed 03-03-PLAN.md
+Last session: 2026-03-19T18:24:42.812Z
+Stopped at: Completed 03-04-PLAN.md
 Resume file: None
