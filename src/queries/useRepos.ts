@@ -26,9 +26,9 @@ export function useModels() {
         additionalFields: ['tags'],
       })) {
         models.push({
-          id: model.id,
-          name: model.name,
-          owner: model.id.includes('/') ? model.id.split('/')[0] : user!.name,
+          id: model.name,
+          name: model.name.includes('/') ? model.name.split('/').slice(1).join('/') : model.name,
+          owner: model.name.includes('/') ? model.name.split('/')[0] : user!.name,
           private: model.private ?? false,
           downloads: model.downloads ?? 0,
           lastModified: model.updatedAt ? model.updatedAt.toISOString() : '',
@@ -56,9 +56,9 @@ export function useDatasets() {
         additionalFields: ['tags'],
       })) {
         datasets.push({
-          id: dataset.id,
-          name: dataset.name,
-          owner: dataset.id.includes('/') ? dataset.id.split('/')[0] : user!.name,
+          id: dataset.name,
+          name: dataset.name.includes('/') ? dataset.name.split('/').slice(1).join('/') : dataset.name,
+          owner: dataset.name.includes('/') ? dataset.name.split('/')[0] : user!.name,
           private: dataset.private ?? false,
           downloads: dataset.downloads ?? 0,
           lastModified: dataset.updatedAt ? dataset.updatedAt.toISOString() : '',

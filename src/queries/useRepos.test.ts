@@ -33,8 +33,9 @@ describe('useModels', () => {
 
   it('should fetch models for the authenticated user', async () => {
     const { listModels } = await import('@huggingface/hub');
+    // @huggingface/hub maps: id = item._id (MongoDB hex), name = item.id (slug)
     const mockModels = [
-      { id: 'testuser/my-model', name: 'my-model', private: false, downloads: 100, lastModified: '2026-01-01', tags: ['pytorch'], likes: 5 },
+      { id: '69988749d9b39c5c7970c0f4', name: 'testuser/my-model', private: false, downloads: 100, lastModified: '2026-01-01', tags: ['pytorch'], likes: 5 },
     ];
     (listModels as any).mockReturnValue((async function* () { for (const m of mockModels) yield m; })());
 
@@ -47,7 +48,10 @@ describe('useModels', () => {
     const { result } = renderHook(() => useModels(), { wrapper: createWrapper() });
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
     expect(result.current.data).toHaveLength(1);
+    // id must be the slug (user/repo), NOT the MongoDB hex
+    expect(result.current.data![0].id).toBe('testuser/my-model');
     expect(result.current.data![0].name).toBe('my-model');
+    expect(result.current.data![0].owner).toBe('testuser');
     expect(result.current.data![0].type).toBe('model');
   });
 });
@@ -59,8 +63,9 @@ describe('useDatasets', () => {
 
   it('should fetch datasets for the authenticated user', async () => {
     const { listDatasets } = await import('@huggingface/hub');
+    // @huggingface/hub maps: id = item._id (MongoDB hex), name = item.id (slug)
     const mockDatasets = [
-      { id: 'testuser/my-dataset', name: 'my-dataset', private: true, downloads: 50, lastModified: '2026-02-01', tags: ['csv'], likes: 2 },
+      { id: '70a12345abcdef0123456789', name: 'testuser/my-dataset', private: true, downloads: 50, lastModified: '2026-02-01', tags: ['csv'], likes: 2 },
     ];
     (listDatasets as any).mockReturnValue((async function* () { for (const d of mockDatasets) yield d; })());
 
@@ -73,6 +78,10 @@ describe('useDatasets', () => {
     const { result } = renderHook(() => useDatasets(), { wrapper: createWrapper() });
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
     expect(result.current.data).toHaveLength(1);
+    // id must be the slug (user/repo), NOT the MongoDB hex
+    expect(result.current.data![0].id).toBe('testuser/my-dataset');
+    expect(result.current.data![0].name).toBe('my-dataset');
+    expect(result.current.data![0].owner).toBe('testuser');
     expect(result.current.data![0].type).toBe('dataset');
   });
 });

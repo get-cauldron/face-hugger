@@ -84,10 +84,11 @@ describe('AppShell repo navigation', () => {
 
   it('navigateToRepo passes full repo.id string (not index) to RepoBrowserPage', async () => {
     const { listModels } = await import('@huggingface/hub');
+    // @huggingface/hub: id = MongoDB _id (hex), name = slug (user/repo)
     const mockModels = [
       {
-        id: 'zkeown/llama-fine-tuned',
-        name: 'llama-fine-tuned',
+        id: '69988749d9b39c5c7970c0f4',
+        name: 'zkeown/llama-fine-tuned',
         private: false,
         downloads: 42,
         likes: 5,
@@ -95,8 +96,8 @@ describe('AppShell repo navigation', () => {
         tags: ['pytorch'],
       },
       {
-        id: 'zkeown/bert-custom',
-        name: 'bert-custom',
+        id: '70a12345abcdef0123456789',
+        name: 'zkeown/bert-custom',
         private: true,
         downloads: 10,
         likes: 1,
@@ -116,7 +117,7 @@ describe('AppShell repo navigation', () => {
     const Wrapper = createWrapper();
     render(createElement(Wrapper, null, createElement(AppShell)));
 
-    // Wait for models to load
+    // Wait for models to load — name is now extracted as short name from slug
     await waitFor(() => {
       expect(screen.getByText('llama-fine-tuned')).toBeTruthy();
     });
@@ -141,10 +142,11 @@ describe('AppShell repo navigation', () => {
     const { listModels, listDatasets } = await import('@huggingface/hub');
     (listModels as any).mockReturnValue((async function* () {})());
 
+    // @huggingface/hub: id = MongoDB _id (hex), name = slug (user/repo)
     const mockDatasets = [
       {
-        id: 'zkeown/my-dataset',
-        name: 'my-dataset',
+        id: '80b56789abcdef0123456789',
+        name: 'zkeown/my-dataset',
         private: false,
         downloads: 100,
         likes: 3,
