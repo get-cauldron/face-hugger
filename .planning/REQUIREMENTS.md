@@ -9,10 +9,10 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Authentication
 
-- [ ] **AUTH-01**: User can authenticate by pasting an HF access token
-- [ ] **AUTH-02**: Token is stored securely in the OS keyring (macOS Keychain, Windows Credential Manager, Linux Secret Service)
+- [x] **AUTH-01**: User can authenticate by pasting an HF access token
+- [x] **AUTH-02**: Token is stored securely in the OS keyring (macOS Keychain, Windows Credential Manager, Linux Secret Service)
 - [ ] **AUTH-03**: User can authenticate via OAuth browser login flow
-- [ ] **AUTH-04**: App displays authenticated user info (username, avatar, token scopes)
+- [x] **AUTH-04**: App displays authenticated user info (username, avatar, token scopes)
 
 ### Uploads
 
@@ -79,10 +79,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| AUTH-01 | Phase 1 | Pending |
-| AUTH-02 | Phase 1 | Pending |
+| AUTH-01 | Phase 1 | Complete |
+| AUTH-02 | Phase 1 | Complete |
 | AUTH-03 | Phase 4 | Pending |
-| AUTH-04 | Phase 1 | Pending |
+| AUTH-04 | Phase 1 | Complete |
 | UPLD-01 | Phase 2 | Pending |
 | UPLD-02 | Phase 2 | Pending |
 | UPLD-03 | Phase 2 | Pending |

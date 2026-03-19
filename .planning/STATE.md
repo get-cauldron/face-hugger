@@ -2,16 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: planning
-stopped_at: Phase 1 context gathered
-last_updated: "2026-03-19T14:02:46.455Z"
-last_activity: 2026-03-19 — Roadmap created, all 23 v1 requirements mapped to 4 phases
+status: unknown
+stopped_at: Completed 01-foundation-01-PLAN.md
+last_updated: "2026-03-19T14:55:03.040Z"
 progress:
-  total_phases: 4
+  total_phases: 5
   completed_phases: 0
-  total_plans: 0
-  completed_plans: 0
-  percent: 0
+  total_plans: 3
+  completed_plans: 1
 ---
 
 # Project State
@@ -21,24 +19,20 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-19)
 
 **Core value:** Uploading multi-GB files to Hugging Face should work reliably on flaky connections without babysitting — resumable, visible, and recoverable.
-**Current focus:** Phase 1 — Foundation
+**Current focus:** Phase 01 — foundation
 
 ## Current Position
 
-Phase: 1 of 4 (Foundation)
-Plan: 0 of TBD in current phase
-Status: Ready to plan
-Last activity: 2026-03-19 — Roadmap created, all 23 v1 requirements mapped to 4 phases
-
-Progress: [░░░░░░░░░░] 0%
+Phase: 01 (foundation) — EXECUTING
+Plan: 2 of 3
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 0
-- Average duration: —
-- Total execution time: —
+- Total plans completed: 1
+- Average duration: 16min
+- Total execution time: 16min
 
 **By Phase:**
 
@@ -52,8 +46,13 @@ Progress: [░░░░░░░░░░] 0%
 - Trend: —
 
 *Updated after each plan completion*
+| Phase 01-foundation P01 | 16min | 3 tasks | 22 files |
 
 ## Accumulated Context
+
+### Roadmap Evolution
+
+- Phase 5 added: E2E/UI Automated Testing
 
 ### Decisions
 
@@ -63,6 +62,10 @@ Recent decisions affecting current work:
 - [Init]: Tauri v2 + React — Rust backend owns all upload I/O; React WebView owns UI state and HF reads
 - [Init]: tauri-specta required from Phase 1 — type-safe IPC boundary prevents entire class of JS/Rust bugs
 - [Init]: Auth-03 (OAuth) deferred to Phase 4 — token auth unblocks everything; OAuth is onboarding polish
+- [Phase 01-foundation]: keyring async-secret-service+tokio features (NOT sync) — sync/async conflict in same build
+- [Phase 01-foundation]: Remove explicit specta version pin — tauri-specta rc.21 requires specta rc.22 internally
+- [Phase 01-foundation]: Use /api/whoami-v2 exclusively — v1 returns 401 for modern HF fine-grained tokens
+- [Phase 01-foundation]: Hand-authored src/bindings.ts so Plan 02 can import typed commands without running the app
 
 ### Pending Todos
 
@@ -76,6 +79,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-19T14:02:46.454Z
-Stopped at: Phase 1 context gathered
-Resume file: .planning/phases/01-foundation/01-CONTEXT.md
+Last session: 2026-03-19T14:55:03.038Z
+Stopped at: Completed 01-foundation-01-PLAN.md
+Resume file: None
