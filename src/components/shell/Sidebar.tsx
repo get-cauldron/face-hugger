@@ -1,14 +1,17 @@
 import { useState, useEffect } from 'react';
-import { UploadCloud, Box, Database, Settings } from 'lucide-react';
+import { UploadCloud, Box, Database, Settings, FolderOpen } from 'lucide-react';
 import UserBadge from './UserBadge';
 import { getPreference } from '../../lib/preferences';
+
+type Section = 'models' | 'datasets' | 'settings' | 'upload' | 'repo-browser';
 
 interface SidebarProps {
   activeSection?: string;
   onSectionChange?: (section: string) => void;
+  selectedRepoId?: string | null;
+  selectedRepoType?: 'model' | 'dataset';
+  onNavigateToRepo?: (repoId: string, repoType: 'model' | 'dataset') => void;
 }
-
-type Section = 'models' | 'datasets' | 'settings';
 
 const navItemBase =
   'flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-sidebar-foreground hover:bg-secondary mx-2 cursor-pointer transition-colors';
@@ -19,7 +22,11 @@ const navItemActive =
 const sectionHeader =
   'text-xs uppercase tracking-wider text-muted-foreground px-3 pt-4 pb-1';
 
-export default function Sidebar({ activeSection: activeSectionProp, onSectionChange }: SidebarProps) {
+export default function Sidebar({
+  activeSection: activeSectionProp,
+  onSectionChange,
+  onNavigateToRepo,
+}: SidebarProps) {
   const [activeSection, setActiveSection] = useState<Section>(
     (activeSectionProp as Section) ?? 'models'
   );
@@ -60,17 +67,16 @@ export default function Sidebar({ activeSection: activeSectionProp, onSectionCha
   return (
     <aside className="w-60 flex flex-col h-[calc(100vh-40px)] bg-sidebar border-r border-sidebar-border">
       <nav className="flex-1 overflow-y-auto py-2">
-        {/* Upload section — disabled placeholder */}
+        {/* Upload section */}
         <div>
           <p className={sectionHeader}>Upload</p>
-          <div
-            className={`${navItemBase} opacity-50 cursor-not-allowed`}
-            aria-disabled="true"
+          <button
+            className={`${navItemBase} w-full text-left ${activeSection === 'upload' ? navItemActive : ''}`}
+            onClick={() => handleSectionChange('upload')}
           >
             <UploadCloud className="w-4 h-4 flex-shrink-0" />
             <span>Upload</span>
-            <span className="text-xs ml-auto text-muted-foreground">Coming soon</span>
-          </div>
+          </button>
         </div>
 
         {/* Models section */}
@@ -89,6 +95,7 @@ export default function Sidebar({ activeSection: activeSectionProp, onSectionCha
               key={repoId}
               className="text-xs text-muted-foreground pl-8 py-1 hover:text-foreground cursor-pointer truncate mx-2 rounded"
               title={repoId}
+              onClick={() => onNavigateToRepo?.(repoId, 'model')}
             >
               {shortName(repoId)}
             </div>
@@ -111,10 +118,23 @@ export default function Sidebar({ activeSection: activeSectionProp, onSectionCha
               key={repoId}
               className="text-xs text-muted-foreground pl-8 py-1 hover:text-foreground cursor-pointer truncate mx-2 rounded"
               title={repoId}
+              onClick={() => onNavigateToRepo?.(repoId, 'dataset')}
             >
               {shortName(repoId)}
             </div>
           ))}
+        </div>
+
+        {/* Repo Browser section */}
+        <div>
+          <p className={sectionHeader}>Repo Browser</p>
+          <button
+            className={`${navItemBase} w-full text-left ${activeSection === 'repo-browser' ? navItemActive : ''}`}
+            onClick={() => handleSectionChange('repo-browser')}
+          >
+            <FolderOpen className="w-4 h-4 flex-shrink-0" />
+            <span>Repo Browser</span>
+          </button>
         </div>
 
         {/* Settings section */}
