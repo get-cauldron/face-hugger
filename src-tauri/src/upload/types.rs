@@ -95,7 +95,9 @@ pub struct UploadJob {
     pub priority: bool,
     pub retry_count: u32,
     pub last_error: Option<String>,
+    #[specta(type = f64)]
     pub created_at: i64,
+    #[specta(type = f64)]
     pub updated_at: i64,
 }
 
