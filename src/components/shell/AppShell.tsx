@@ -3,6 +3,7 @@ import { getCurrentWebview } from '@tauri-apps/api/webview';
 import { CloudUpload } from 'lucide-react';
 import TitleBar from './TitleBar';
 import Sidebar from './Sidebar';
+import UpdateBanner from '../UpdateBanner';
 import ModelsPage from '../../routes/models/ModelsPage';
 import DatasetsPage from '../../routes/datasets/DatasetsPage';
 import SettingsPage from '../../routes/settings/SettingsPage';
@@ -127,28 +128,31 @@ export default function AppShell() {
           selectedRepoType={selectedRepoType}
           onNavigateToRepo={navigateToRepo}
         />
-        <main className="flex-1 overflow-auto p-6 bg-background relative">
-          <ContentArea
-            section={activeSection}
-            selectedRepoId={selectedRepoId}
-            selectedRepoType={selectedRepoType}
-            onBack={handleBack}
-            onRepoSelect={navigateToRepo}
-          />
+        <main className="flex-1 flex flex-col overflow-hidden">
+          <UpdateBanner />
+          <div className="flex-1 overflow-auto p-6 bg-background relative">
+            <ContentArea
+              section={activeSection}
+              selectedRepoId={selectedRepoId}
+              selectedRepoType={selectedRepoType}
+              onBack={handleBack}
+              onRepoSelect={navigateToRepo}
+            />
 
-          {/* Drag-over overlay — shown when OS files are dragged over the app window */}
-          {isDragOver && (
-            <div
-              className="absolute inset-0 z-50 flex flex-col items-center justify-center gap-3 bg-background/90 backdrop-blur-sm border-2 border-dashed border-primary rounded-lg pointer-events-none"
-              aria-hidden
-            >
-              <CloudUpload className="w-12 h-12 text-primary opacity-80" />
-              <p className="text-base font-medium text-foreground">Drop files to upload</p>
-              <p className="text-sm text-muted-foreground">
-                You'll pick a repository in the next step
-              </p>
-            </div>
-          )}
+            {/* Drag-over overlay — shown when OS files are dragged over the app window */}
+            {isDragOver && (
+              <div
+                className="absolute inset-0 z-50 flex flex-col items-center justify-center gap-3 bg-background/90 backdrop-blur-sm border-2 border-dashed border-primary rounded-lg pointer-events-none"
+                aria-hidden
+              >
+                <CloudUpload className="w-12 h-12 text-primary opacity-80" />
+                <p className="text-base font-medium text-foreground">Drop files to upload</p>
+                <p className="text-sm text-muted-foreground">
+                  You'll pick a repository in the next step
+                </p>
+              </div>
+            )}
+          </div>
         </main>
       </div>
 
