@@ -34,7 +34,7 @@ describe('useModels', () => {
   it('should fetch models for the authenticated user', async () => {
     const { listModels } = await import('@huggingface/hub');
     const mockModels = [
-      { id: 'testuser/my-model', private: false, downloads: 100, lastModified: '2026-01-01', tags: ['pytorch'], likes: 5 },
+      { id: 'testuser/my-model', name: 'my-model', private: false, downloads: 100, lastModified: '2026-01-01', tags: ['pytorch'], likes: 5 },
     ];
     (listModels as any).mockReturnValue((async function* () { for (const m of mockModels) yield m; })());
 
@@ -60,7 +60,7 @@ describe('useDatasets', () => {
   it('should fetch datasets for the authenticated user', async () => {
     const { listDatasets } = await import('@huggingface/hub');
     const mockDatasets = [
-      { id: 'testuser/my-dataset', private: true, downloads: 50, lastModified: '2026-02-01', tags: ['csv'], likes: 2 },
+      { id: 'testuser/my-dataset', name: 'my-dataset', private: true, downloads: 50, lastModified: '2026-02-01', tags: ['csv'], likes: 2 },
     ];
     (listDatasets as any).mockReturnValue((async function* () { for (const d of mockDatasets) yield d; })());
 
