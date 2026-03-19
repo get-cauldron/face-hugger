@@ -90,7 +90,11 @@ pub async fn enqueue_upload(
 
     // Kick the queue — start a worker if capacity allows
     let queue = state.upload_queue.lock().await;
-    let _ = try_start_next(&queue, &state.db).await;
+    let hf_token = {
+        let auth = state.auth.lock().await;
+        auth.token.clone().unwrap_or_default()
+    };
+    let _ = try_start_next(&queue, &state.db, &hf_token, &state.cancel_tokens, &state.progress_map).await;
     drop(queue);
 
     // Return the new job
@@ -138,7 +142,11 @@ pub async fn resume_upload(
 
     // Kick the queue
     let queue = state.upload_queue.lock().await;
-    let _ = try_start_next(&queue, &state.db).await;
+    let hf_token = {
+        let auth = state.auth.lock().await;
+        auth.token.clone().unwrap_or_default()
+    };
+    let _ = try_start_next(&queue, &state.db, &hf_token, &state.cancel_tokens, &state.progress_map).await;
     drop(queue);
 
     Ok(())

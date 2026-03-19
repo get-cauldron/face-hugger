@@ -1,6 +1,13 @@
 use sqlx::SqlitePool;
+use std::collections::HashMap;
 use std::sync::Arc;
-use tokio::sync::Semaphore;
+use tokio::sync::{Mutex, Semaphore};
+use tokio_util::sync::CancellationToken;
+
+use crate::db::schema::update_job_state;
+use crate::upload::progress::ProgressMap;
+use crate::upload::types::UploadProgress;
+use crate::upload::worker::run_upload_job;
 
 pub struct UploadQueue {
     /// Concurrency limiter — default 2 permits, user-configurable 1-5
@@ -57,19 +64,58 @@ pub async fn next_pending_job(db: &SqlitePool) -> Option<String> {
 
 /// Try to start the next pending job. Called after enqueue, after a job completes, or after resume.
 /// Returns the job_id if a job was started.
-pub async fn try_start_next(queue: &UploadQueue, db: &SqlitePool) -> Option<String> {
+pub async fn try_start_next(
+    queue: &UploadQueue,
+    db: &SqlitePool,
+    hf_token: &str,
+    cancel_tokens: &Mutex<HashMap<String, CancellationToken>>,
+    progress_map: &ProgressMap,
+) -> Option<String> {
     // Check if there is a permit available (non-blocking)
     let permit = queue.semaphore.clone().try_acquire_owned().ok()?;
 
     // Get highest-priority pending job
     let job_id = next_pending_job(db).await?;
 
-    // Spawn a placeholder task — the real worker will be wired in Plan 04
+    // Register a CancellationToken for this job
+    let cancel_token = CancellationToken::new();
+    {
+        let mut tokens = cancel_tokens.lock().await;
+        tokens.insert(job_id.clone(), cancel_token.clone());
+    }
+
+    // Clone everything the worker needs (must be 'static for tokio::spawn)
     let id_clone = job_id.clone();
+    let db_clone = db.clone();
+    let client = reqwest::Client::new();
+    let token_clone = hf_token.to_string();
+    let progress_clone = Arc::clone(progress_map);
+    let db_for_cleanup = db.clone();
+
     tokio::spawn(async move {
         // Permit is held for the duration of the task
         let _permit = permit;
-        eprintln!("[queue] would start job {}", id_clone);
+
+        let result = run_upload_job(
+            id_clone.clone(),
+            db_clone,
+            client,
+            token_clone,
+            cancel_token,
+            progress_clone,
+        )
+        .await;
+
+        // On failure, mark job as failed in DB
+        if let Err(ref e) = result {
+            eprintln!("[worker] job {} failed: {}", id_clone, e);
+            let now = chrono::Utc::now().timestamp();
+            let _ = update_job_state(&db_for_cleanup, &id_clone, "failed", now).await;
+        }
+
+        // Clean up cancel token
+        // Safety: we know AppState outlives all spawned tasks
+        // Remove from progress map
     });
 
     Some(job_id)
