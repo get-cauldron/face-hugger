@@ -20,12 +20,14 @@ Uploading multi-GB files to Hugging Face should work reliably on flaky connectio
 - ✓ Advanced mode with drag-and-queue and folder sync — Validated in Phase 3: Upload UI
 - ✓ Repository CRUD — create, delete repos and files — Validated in Phase 3: Repo Management
 - ✓ Version tracking — commit history, revert, rollback — Validated in Phase 3: Repo Management
+- ✓ OAuth browser login with PKCE + token fallback — Validated in Phase 4: Secondary Features
+- ✓ Browse and preview datasets — rows, search, filter, column stats — Validated in Phase 4: Secondary Features
+- ✓ Background uploads with system tray, close-to-tray, notifications — Validated in Phase 4: Secondary Features
+- ✓ Cross-platform CI/CD release workflow and auto-update — Validated in Phase 4: Distribution
 
 ### Active
 
-- [ ] OAuth browser login
-- [ ] Browse and preview datasets — view rows, check schema
-- [ ] Background uploads with system tray presence
+(No active requirements — all moved to Validated or Out of Scope)
 
 ### Out of Scope
 
@@ -59,4 +61,4 @@ Uploading multi-GB files to Hugging Face should work reliably on flaky connectio
 | Open source + app store | Community tool, free distribution | — Pending |
 
 ---
-*Last updated: 2026-03-19 after Phase 3: Upload UI + Repo Management complete*
+*Last updated: 2026-03-19 after Phase 4: Secondary Features & Distribution complete*
