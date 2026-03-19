@@ -64,7 +64,13 @@ async checkExistingToken() : Promise<Result<string | null, string>> {
 
 /** user-defined types **/
 
-export type UserInfo = { name: string; fullname: string | null; 
+export type UploadJobState = "pending" | "hashing" | "uploading" | "committing" | "done" | "failed" | "paused" | "cancelled";
+export type UploadProtocol = "xet" | "lfs_multipart";
+
+// Re-export upload types from commands/upload.ts for convenience
+export type { UploadJob, UploadProgress } from './commands/upload';
+
+export type UserInfo = { name: string; fullname: string | null;
 /**
  * HF API returns "avatarUrl" — rename to snake_case for consistency across Rust and TypeScript.
  */
