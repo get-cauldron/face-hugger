@@ -3,8 +3,9 @@ import { useUploadStore } from '../../stores/uploadStore';
 import { startUploadMonitoring, listUploads, pauseAllUploads } from '../../commands/upload';
 import UploadWizard from './wizard/UploadWizard';
 import UploadQueueView from './queue/UploadQueueView';
+import FolderSyncView from './FolderSync';
 import { Button } from '../../components/ui/button';
-import { Plus, PauseCircle, RefreshCw, FolderSync } from 'lucide-react';
+import { Plus, PauseCircle, FolderSync } from 'lucide-react';
 
 type UploadView = 'queue' | 'wizard' | 'folder-sync';
 
@@ -135,11 +136,7 @@ export default function UploadPage() {
           <UploadWizard />
         )}
         {view === 'folder-sync' && (
-          // FolderSync is imported and wired in Task 2
-          <div className="flex flex-col items-center justify-center h-48 text-muted-foreground">
-            <RefreshCw className="w-8 h-8 opacity-30 mb-3" />
-            <p className="text-sm">Folder Sync — loading…</p>
-          </div>
+          <FolderSyncView />
         )}
       </div>
     </div>
