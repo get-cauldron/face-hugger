@@ -79,35 +79,37 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| AUTH-01 | — | Pending |
-| AUTH-02 | — | Pending |
-| AUTH-03 | — | Pending |
-| AUTH-04 | — | Pending |
-| UPLD-01 | — | Pending |
-| UPLD-02 | — | Pending |
-| UPLD-03 | — | Pending |
-| UPLD-04 | — | Pending |
-| UPLD-05 | — | Pending |
-| UPLD-06 | — | Pending |
-| UPLD-07 | — | Pending |
-| UPLD-08 | — | Pending |
-| UPLD-09 | — | Pending |
-| UPLD-10 | — | Pending |
-| REPO-01 | — | Pending |
-| REPO-02 | — | Pending |
-| REPO-03 | — | Pending |
-| REPO-04 | — | Pending |
-| REPO-05 | — | Pending |
-| REPO-06 | — | Pending |
-| DATA-01 | — | Pending |
-| DATA-02 | — | Pending |
-| DATA-03 | — | Pending |
+| AUTH-01 | Phase 1 | Pending |
+| AUTH-02 | Phase 1 | Pending |
+| AUTH-03 | Phase 4 | Pending |
+| AUTH-04 | Phase 1 | Pending |
+| UPLD-01 | Phase 2 | Pending |
+| UPLD-02 | Phase 2 | Pending |
+| UPLD-03 | Phase 2 | Pending |
+| UPLD-04 | Phase 2 | Pending |
+| UPLD-05 | Phase 2 | Pending |
+| UPLD-06 | Phase 3 | Pending |
+| UPLD-07 | Phase 3 | Pending |
+| UPLD-08 | Phase 3 | Pending |
+| UPLD-09 | Phase 4 | Pending |
+| UPLD-10 | Phase 2 | Pending |
+| REPO-01 | Phase 1 | Pending |
+| REPO-02 | Phase 3 | Pending |
+| REPO-03 | Phase 3 | Pending |
+| REPO-04 | Phase 3 | Pending |
+| REPO-05 | Phase 3 | Pending |
+| REPO-06 | Phase 3 | Pending |
+| DATA-01 | Phase 4 | Pending |
+| DATA-02 | Phase 4 | Pending |
+| DATA-03 | Phase 4 | Pending |
 
 **Coverage:**
 - v1 requirements: 23 total
-- Mapped to phases: 0
-- Unmapped: 23 ⚠️
+- Mapped to phases: 23
+- Unmapped: 0 ✓
+
+**Note on AUTH-03:** OAuth login is a v1 requirement but assigned to Phase 4 (not Phase 1) because token auth fully unblocks all other phases, and OAuth is onboarding polish that adds Phase 4 complexity without blocking the upload engine or repo management features.
 
 ---
 *Requirements defined: 2026-03-19*
-*Last updated: 2026-03-19 after initial definition*
+*Last updated: 2026-03-19 after roadmap creation — all 23 requirements mapped*
