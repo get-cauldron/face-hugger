@@ -2,6 +2,7 @@ use std::collections::HashMap;
 use std::sync::{Arc, Mutex as StdMutex};
 
 use tauri::ipc::Channel;
+use tauri::Manager;
 use tokio::time::{interval, Duration};
 
 use crate::upload::types::{UploadJobState, UploadProgress};

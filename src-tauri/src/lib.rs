@@ -6,7 +6,7 @@ pub mod tray;
 pub mod upload;
 
 use state::AppState;
-use tauri::{AppHandle, Manager};
+use tauri::{AppHandle, Listener, Manager};
 use tauri_plugin_store::StoreExt;
 use tauri_specta::{collect_commands, Builder};
 

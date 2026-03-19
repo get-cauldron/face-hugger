@@ -7,7 +7,6 @@ use tokio_util::sync::CancellationToken;
 
 use crate::db::schema::{get_job, update_job_state};
 use crate::upload::progress::ProgressMap;
-use crate::upload::types::UploadProgress;
 use crate::upload::worker::run_upload_job;
 
 pub struct UploadQueue {
