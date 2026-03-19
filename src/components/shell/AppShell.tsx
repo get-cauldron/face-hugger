@@ -4,6 +4,7 @@ import Sidebar from './Sidebar';
 import ModelsPage from '../../routes/models/ModelsPage';
 import DatasetsPage from '../../routes/datasets/DatasetsPage';
 import SettingsPage from '../../routes/settings/SettingsPage';
+import UploadPage from '../../routes/upload/UploadPage';
 
 type Section = 'models' | 'datasets' | 'settings' | 'upload' | 'repo-browser';
 
@@ -24,12 +25,7 @@ function ContentArea({
     case 'settings':
       return <SettingsPage />;
     case 'upload':
-      return (
-        <div className="flex flex-col items-center justify-center h-full text-muted-foreground">
-          <p className="text-lg font-medium">Upload</p>
-          <p className="text-sm mt-1">Upload queue UI — coming in plan 03-02</p>
-        </div>
-      );
+      return <UploadPage />;
     case 'repo-browser':
       return (
         <div className="flex flex-col items-center justify-center h-full text-muted-foreground">
