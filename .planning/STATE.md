@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Completed 02-upload-engine-03-PLAN.md
-last_updated: "2026-03-19T16:57:37.139Z"
+stopped_at: Completed 02-upload-engine-02-PLAN.md
+last_updated: "2026-03-19T16:58:26.274Z"
 progress:
   total_phases: 5
   completed_phases: 1
   total_plans: 8
-  completed_plans: 5
+  completed_plans: 6
 ---
 
 # Project State
@@ -51,6 +51,7 @@ Plan: 3 of 5
 | Phase 01-foundation P03 | 45min | 3 tasks | 13 files |
 | Phase 02-upload-engine P01 | 3 | 2 tasks | 7 files |
 | Phase 02-upload-engine P03 | 3min | 2 tasks | 4 files |
+| Phase 02-upload-engine P02 | 3min | 2 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -84,6 +85,8 @@ Recent decisions affecting current work:
 - [Phase 02-upload-engine]: DB initialization runs in tauri::async_runtime::spawn in setup hook; tauri::Manager trait must be explicitly imported
 - [Phase 02-upload-engine]: Pause reuses CancellationToken cancel() signal; worker reads DB state post-cancellation to distinguish pause vs cancel
 - [Phase 02-upload-engine]: set_max_concurrent decrease replaces semaphore entirely; active uploads hold permits from old semaphore and finish naturally
+- [Phase 02-upload-engine]: bytes crate added for bytes::Bytes parameter type in xorb/shard upload functions
+- [Phase 02-upload-engine]: Helper functions (parse_protocol, format_commit_body, lfs_batch_url) kept pub for offline testability without mocking HTTP
 
 ### Pending Todos
 
@@ -97,6 +100,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-19T16:57:37.137Z
-Stopped at: Completed 02-upload-engine-03-PLAN.md
+Last session: 2026-03-19T16:58:26.272Z
+Stopped at: Completed 02-upload-engine-02-PLAN.md
 Resume file: None
