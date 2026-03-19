@@ -29,7 +29,11 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. The app shows the authenticated user's username and avatar after login
   4. User can see a list of their HF repos (models and datasets) after authenticating
   5. The Tauri app builds and runs on macOS, Windows, and Linux with type-safe IPC between Rust and React
-**Plans**: TBD
+**Plans**: 3 plans
+Plans:
+- [ ] 01-01-PLAN.md — Scaffold Tauri v2 project and build Rust auth backend with tauri-specta IPC
+- [ ] 01-02-PLAN.md — React app shell (titlebar, sidebar, theme) and login screen with auth flow
+- [ ] 01-03-PLAN.md — Repo listing (Models + Datasets pages) with search, filter, sort, grid/table views
 
 ### Phase 2: Upload Engine
 **Goal**: Files can be reliably uploaded to HF repos through a fault-tolerant Rust engine that handles both Xet and LFS protocols
@@ -74,7 +78,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 0/TBD | Not started | - |
+| 1. Foundation | 0/3 | Not started | - |
 | 2. Upload Engine | 0/TBD | Not started | - |
 | 3. Upload UI + Repo Management | 0/TBD | Not started | - |
 | 4. Secondary Features + Distribution | 0/TBD | Not started | - |
