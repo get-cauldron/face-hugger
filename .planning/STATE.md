@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Completed 05-05-PLAN.md
-last_updated: "2026-03-20T01:30:37.126Z"
+stopped_at: Completed 06-01-PLAN.md
+last_updated: "2026-03-20T02:00:51.611Z"
 progress:
-  total_phases: 5
+  total_phases: 6
   completed_phases: 5
-  total_plans: 22
-  completed_plans: 22
+  total_plans: 24
+  completed_plans: 23
 ---
 
 # Project State
@@ -19,12 +19,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-19)
 
 **Core value:** Uploading multi-GB files to Hugging Face should work reliably on flaky connections without babysitting — resumable, visible, and recoverable.
-**Current focus:** Phase 05 — e2e-ui-automated-testing
+**Current focus:** Phase 06 — polish-tech-debt
 
 ## Current Position
 
-Phase: 05 (e2e-ui-automated-testing) — COMPLETE
-Plan: 5 of 5
+Phase: 06 (polish-tech-debt) — EXECUTING
+Plan: 1 of 2
 
 ## Performance Metrics
 
@@ -68,6 +68,7 @@ Plan: 5 of 5
 | Phase 05-e2e-ui-automated-testing P03 | 45min | 2 tasks | 5 files |
 | Phase 05-e2e-ui-automated-testing P04 | 3min | 3 tasks | 5 files |
 | Phase 05-e2e-ui-automated-testing P05 | 2min | 2 tasks | 5 files |
+| Phase 06-polish-tech-debt P01 | 3min | 1 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -144,6 +145,7 @@ Recent decisions affecting current work:
 - [Phase 05-e2e-ui-automated-testing]: test.yml uses workflow_call trigger so release.yml can reuse it; build-tauri needs [create-release, test] to gate releases
 - [Phase 05-e2e-ui-automated-testing]: tauri:options.application uses path.resolve for cross-platform binary path in wdio.conf.js
 - [Phase 05-e2e-ui-automated-testing]: webkit2gtk-driver installed as separate apt step on Ubuntu -- not bundled with libwebkit2gtk
+- [Phase 06-polish-tech-debt]: Toggle buttons (not slider) for concurrent limit — 5 discrete values where exact selection matters
 
 ### Pending Todos
 
@@ -157,6 +159,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-20T01:24:42.125Z
-Stopped at: Completed 05-05-PLAN.md
+Last session: 2026-03-20T02:00:51.608Z
+Stopped at: Completed 06-01-PLAN.md
 Resume file: None
