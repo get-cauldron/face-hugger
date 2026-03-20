@@ -88,10 +88,27 @@ Plans:
 - [ ] 04-03-PLAN.md — System tray: close-to-tray, animated icon, dynamic menu, upload notifications
 - [ ] 04-04-PLAN.md — Distribution: GitHub Actions CI workflow, updater config, UpdateBanner component
 
+### Phase 5: E2E/UI Automated Testing
+**Goal**: Comprehensive automated test coverage across all layers with CI gating so no release ships without green tests
+**Depends on:** Phase 4
+**Requirements**: None (quality/testing phase, no feature requirements)
+**Success Criteria** (what must be TRUE):
+  1. Playwright E2E tests cover all critical user flows (auth, upload wizard, repo management, dataset preview)
+  2. Frontend unit test gaps are filled for all major untested components
+  3. Rust command tests run with tauri::test mock runtime
+  4. CI test workflow runs all test layers on macOS, Windows, and Linux
+  5. Release workflow is gated on test passage — red tests block artifact builds
+**Plans**: 4 plans
+Plans:
+- [ ] 05-01-PLAN.md — Test infrastructure: Playwright, MSW, IPC mocks, fixtures, smoke spec
+- [ ] 05-02-PLAN.md — Frontend unit test gaps: LoginScreen, UploadWizard, RepoBrowserPage, DatasetsPage, UpdateBanner
+- [ ] 05-03-PLAN.md — Playwright E2E: auth, upload wizard, repo management, dataset preview
+- [ ] 05-04-PLAN.md — CI integration: Rust command tests, test workflow, release gating
+
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → 3 → 4
+Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
@@ -99,13 +116,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 | 2. Upload Engine | 5/5 | Complete   | 2026-03-19 |
 | 3. Upload UI + Repo Management | 5/5 | Complete   | 2026-03-19 |
 | 4. Secondary Features + Distribution | 4/4 | Complete   | 2026-03-19 |
-
-### Phase 5: E2E/UI Automated Testing
-
-**Goal:** [To be planned]
-**Requirements**: TBD
-**Depends on:** Phase 4
-**Plans:** 4/4 plans complete
-
-Plans:
-- [ ] TBD (run /gsd:plan-phase 5 to break down)
+| 5. E2E/UI Automated Testing | 0/4 | Planning   | — |
