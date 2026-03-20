@@ -5,7 +5,7 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     globals: true,
-    setupFiles: [],
+    setupFiles: ['./tests/fixtures/mocks/setup.ts'],
   },
   resolve: {
     alias: {
