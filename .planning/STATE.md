@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Completed 05-02-PLAN.md
-last_updated: "2026-03-20T00:53:11.078Z"
+stopped_at: Completed 05-03-PLAN.md
+last_updated: "2026-03-20T01:40:00.000Z"
 progress:
   total_phases: 5
   completed_phases: 4
   total_plans: 22
-  completed_plans: 19
+  completed_plans: 20
 ---
 
 # Project State
@@ -24,7 +24,7 @@ See: .planning/PROJECT.md (updated 2026-03-19)
 ## Current Position
 
 Phase: 05 (e2e-ui-automated-testing) — EXECUTING
-Plan: 2 of 5
+Plan: 3 of 5
 
 ## Performance Metrics
 
@@ -65,6 +65,7 @@ Plan: 2 of 5
 | Phase 04-secondary-features-distribution P04 | 5min | 2 tasks | 5 files |
 | Phase 05-e2e-ui-automated-testing P01 | 3min | 3 tasks | 11 files |
 | Phase 05-e2e-ui-automated-testing P02 | 5min | 2 tasks | 6 files |
+| Phase 05-e2e-ui-automated-testing P03 | 45min | 2 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -132,6 +133,10 @@ Recent decisions affecting current work:
 - [Phase 05-e2e-ui-automated-testing]: MSW v2 http.* syntax used (not rest.*); setupTauriMocks serializes handler return values for addInitScript browser context; vitest.config.ts excludes tests/e2e/** to prevent Playwright spec pickup
 - [Phase 05-e2e-ui-automated-testing]: ESM imports used instead of require() in Vitest beforeEach — Vitest ESM environment rejects CommonJS require()
 - [Phase 05-e2e-ui-automated-testing]: useDatasetRows tests import from useDatasetViewer.ts — hook lives in viewer file, not separate rows file as plan assumed
+- [Phase 05-e2e-ui-automated-testing]: IPC mock needs currentWebview in metadata — AppShell calls getCurrentWebview() which reads metadata.currentWebview.label
+- [Phase 05-e2e-ui-automated-testing]: transformCallback mock required for listen/Channel API — OAuth flow, drag-drop events, upload monitoring use it
+- [Phase 05-e2e-ui-automated-testing]: Upload commands (raw invoke + local unwrap) need {status:'ok', data:T} shape — auth commands (bindings.ts) need raw values
+- [Phase 05-e2e-ui-automated-testing]: Route mocks must be registered before page.goto() — React Query fetches on mount; adding routes after goto leaves cache stale
 
 ### Pending Todos
 
@@ -145,6 +150,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-20T00:53:11.076Z
-Stopped at: Completed 05-02-PLAN.md
+Last session: 2026-03-20T01:40:00.000Z
+Stopped at: Completed 05-03-PLAN.md
 Resume file: None
