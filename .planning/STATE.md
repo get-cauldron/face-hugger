@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Completed 05-01-PLAN.md
-last_updated: "2026-03-20T00:45:36.661Z"
+stopped_at: Completed 05-02-PLAN.md
+last_updated: "2026-03-20T00:53:11.078Z"
 progress:
   total_phases: 5
   completed_phases: 4
   total_plans: 22
-  completed_plans: 18
+  completed_plans: 19
 ---
 
 # Project State
@@ -64,6 +64,7 @@ Plan: 2 of 5
 | Phase 04-secondary-features-distribution P03 | 6min | 2 tasks | 6 files |
 | Phase 04-secondary-features-distribution P04 | 5min | 2 tasks | 5 files |
 | Phase 05-e2e-ui-automated-testing P01 | 3min | 3 tasks | 11 files |
+| Phase 05-e2e-ui-automated-testing P02 | 5min | 2 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -129,6 +130,8 @@ Recent decisions affecting current work:
 - [Phase 04-secondary-features-distribution]: createUpdaterArtifacts uses boolean true (not string) in Tauri v2 final release
 - [Phase 04-secondary-features-distribution]: TAURI_CHANNEL stub removed from bindings.ts — conflicts with Channel import alias from @tauri-apps/api/core
 - [Phase 05-e2e-ui-automated-testing]: MSW v2 http.* syntax used (not rest.*); setupTauriMocks serializes handler return values for addInitScript browser context; vitest.config.ts excludes tests/e2e/** to prevent Playwright spec pickup
+- [Phase 05-e2e-ui-automated-testing]: ESM imports used instead of require() in Vitest beforeEach — Vitest ESM environment rejects CommonJS require()
+- [Phase 05-e2e-ui-automated-testing]: useDatasetRows tests import from useDatasetViewer.ts — hook lives in viewer file, not separate rows file as plan assumed
 
 ### Pending Todos
 
@@ -142,6 +145,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-20T00:45:36.658Z
-Stopped at: Completed 05-01-PLAN.md
+Last session: 2026-03-20T00:53:11.076Z
+Stopped at: Completed 05-02-PLAN.md
 Resume file: None
