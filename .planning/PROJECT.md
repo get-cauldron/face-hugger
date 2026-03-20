@@ -24,6 +24,7 @@ Uploading multi-GB files to Hugging Face should work reliably on flaky connectio
 - ✓ Browse and preview datasets — rows, search, filter, column stats — Validated in Phase 4: Secondary Features
 - ✓ Background uploads with system tray, close-to-tray, notifications — Validated in Phase 4: Secondary Features
 - ✓ Cross-platform CI/CD release workflow and auto-update — Validated in Phase 4: Distribution
+- ✓ Comprehensive automated test coverage (unit, E2E, native) with CI gate — Validated in Phase 5: Testing
 
 ### Active
 
@@ -61,4 +62,4 @@ Uploading multi-GB files to Hugging Face should work reliably on flaky connectio
 | Open source + app store | Community tool, free distribution | — Pending |
 
 ---
-*Last updated: 2026-03-19 after Phase 4: Secondary Features & Distribution complete*
+*Last updated: 2026-03-20 after Phase 5: E2E/UI Automated Testing complete — all v1.0 phases done*
