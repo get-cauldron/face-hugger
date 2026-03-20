@@ -6,6 +6,10 @@ on:
       - 'v*'
 
 jobs:
+  test:
+    uses: ./.github/workflows/test.yml
+    secrets: inherit
+
   create-release:
     permissions:
       contents: write
@@ -31,7 +35,7 @@ jobs:
             return data.id;
 
   build-tauri:
-    needs: create-release
+    needs: [create-release, test]
     permissions:
       contents: write
     strategy:
