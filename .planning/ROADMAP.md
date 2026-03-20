@@ -98,12 +98,13 @@ Plans:
   3. Rust command tests run with tauri::test mock runtime
   4. CI test workflow runs all test layers on macOS, Windows, and Linux
   5. Release workflow is gated on test passage — red tests block artifact builds
-**Plans**: 4 plans
+**Plans**: 5 plans
 Plans:
 - [ ] 05-01-PLAN.md — Test infrastructure: Playwright, MSW, IPC mocks, fixtures, smoke spec
 - [ ] 05-02-PLAN.md — Frontend unit test gaps: LoginScreen, UploadWizard, RepoBrowserPage, DatasetsPage, UpdateBanner
 - [ ] 05-03-PLAN.md — Playwright E2E: auth, upload wizard, repo management, dataset preview
-- [ ] 05-04-PLAN.md — CI integration: Rust command tests, test workflow, release gating
+- [ ] 05-04-PLAN.md — CI integration: Rust command tests, HF API smoke tests, test workflow, release gating
+- [ ] 05-05-PLAN.md — tauri-driver native tests: WebdriverIO config, tray and window specs, CI for Linux/Windows
 
 ## Progress
 
@@ -116,4 +117,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 2. Upload Engine | 5/5 | Complete   | 2026-03-19 |
 | 3. Upload UI + Repo Management | 5/5 | Complete   | 2026-03-19 |
 | 4. Secondary Features + Distribution | 4/4 | Complete   | 2026-03-19 |
-| 5. E2E/UI Automated Testing | 0/4 | Planning   | — |
+| 5. E2E/UI Automated Testing | 0/5 | Planning   | — |
