@@ -16,6 +16,8 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 2: Upload Engine** - Rust upload engine with Xet/LFS protocol detection, resumable chunked uploads, and SQLite-backed queue state (completed 2026-03-19)
 - [x] **Phase 3: Upload UI + Repo Management** - Upload wizard, queue view, and full repository browser/CRUD (completed 2026-03-19)
 - [x] **Phase 4: Secondary Features + Distribution** - OAuth login, dataset preview, background uploads, signed distribution artifacts (completed 2026-03-19)
+- [x] **Phase 5: E2E/UI Automated Testing** - Comprehensive test coverage with Playwright, Vitest, tauri-driver, and CI gate (completed 2026-03-20)
+- [ ] **Phase 6: Polish & Tech Debt Cleanup** - Fix minor integration issues and clean up tech debt from audit
 
 ## Phase Details
 
@@ -106,10 +108,23 @@ Plans:
 - [ ] 05-04-PLAN.md — CI integration: Rust command tests, HF API smoke tests, test workflow, release gating
 - [ ] 05-05-PLAN.md — tauri-driver native tests: WebdriverIO config, tray and window specs, CI for Linux/Windows
 
+### Phase 6: Polish & Tech Debt Cleanup
+**Goal:** Fix minor integration issues (UPLD-04, UPLD-07) and clean up accumulated tech debt across all phases before milestone completion
+**Requirements**: UPLD-04, UPLD-07
+**Depends on:** Phase 5
+**Gap Closure:** Closes gaps from v1.0 milestone audit
+**Success Criteria** (what must be TRUE):
+  1. Settings page has a concurrent upload limit control that persists across restarts
+  2. Drag-and-drop files immediately appear in the queue view without waiting for progress monitor
+  3. All dead code removed (wizardRepoId, wrong invalidateQueries keys, unnecessary type casts)
+  4. Documentation inconsistencies fixed (tray.rs comment)
+Plans:
+- [ ] TBD (run /gsd:plan-phase 6 to break down)
+
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
+Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
@@ -118,3 +133,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 3. Upload UI + Repo Management | 5/5 | Complete   | 2026-03-19 |
 | 4. Secondary Features + Distribution | 4/4 | Complete   | 2026-03-19 |
 | 5. E2E/UI Automated Testing | 5/5 | Complete   | 2026-03-20 |
+| 6. Polish & Tech Debt Cleanup | 0/0 | Pending   | — |
