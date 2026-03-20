@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Completed 05-03-PLAN.md
-last_updated: "2026-03-20T01:40:00.000Z"
+stopped_at: Completed 05-04-PLAN.md
+last_updated: "2026-03-20T01:20:35.665Z"
 progress:
   total_phases: 5
   completed_phases: 4
   total_plans: 22
-  completed_plans: 20
+  completed_plans: 21
 ---
 
 # Project State
@@ -24,7 +24,7 @@ See: .planning/PROJECT.md (updated 2026-03-19)
 ## Current Position
 
 Phase: 05 (e2e-ui-automated-testing) — EXECUTING
-Plan: 3 of 5
+Plan: 4 of 5
 
 ## Performance Metrics
 
@@ -66,6 +66,7 @@ Plan: 3 of 5
 | Phase 05-e2e-ui-automated-testing P01 | 3min | 3 tasks | 11 files |
 | Phase 05-e2e-ui-automated-testing P02 | 5min | 2 tasks | 6 files |
 | Phase 05-e2e-ui-automated-testing P03 | 45min | 2 tasks | 5 files |
+| Phase 05-e2e-ui-automated-testing P04 | 3min | 3 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -137,6 +138,9 @@ Recent decisions affecting current work:
 - [Phase 05-e2e-ui-automated-testing]: transformCallback mock required for listen/Channel API — OAuth flow, drag-drop events, upload monitoring use it
 - [Phase 05-e2e-ui-automated-testing]: Upload commands (raw invoke + local unwrap) need {status:'ok', data:T} shape — auth commands (bindings.ts) need raw values
 - [Phase 05-e2e-ui-automated-testing]: Route mocks must be registered before page.goto() — React Query fetches on mount; adding routes after goto leaves cache stale
+- [Phase 05-e2e-ui-automated-testing]: Rust command tests target pure helper functions not AppHandle-bound commands -- tauri-specta MockRuntime trait bound issues prevent direct command testing
+- [Phase 05-e2e-ui-automated-testing]: HF smoke tests use Playwright APIRequestContext directly -- no browser or Tauri IPC needed for HTTP API validation
+- [Phase 05-e2e-ui-automated-testing]: test.yml uses workflow_call trigger so release.yml can reuse it; build-tauri needs [create-release, test] to gate releases
 
 ### Pending Todos
 
@@ -150,6 +154,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-20T01:40:00.000Z
-Stopped at: Completed 05-03-PLAN.md
+Last session: 2026-03-20T01:20:35.662Z
+Stopped at: Completed 05-04-PLAN.md
 Resume file: None
