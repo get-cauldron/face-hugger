@@ -9,7 +9,8 @@ import {
 } from '../../components/ui/dialog';
 import { Button } from '../../components/ui/button';
 import { useModels, useDatasets } from '../../queries/useRepos';
-import { enqueueUpload } from '../../commands/upload';
+import { enqueueUpload, listUploads } from '../../commands/upload';
+import { useUploadStore } from '../../stores/uploadStore';
 import type { RepoItem } from '../../queries/useRepos';
 
 interface Props {
@@ -26,6 +27,7 @@ function basename(filePath: string): string {
 export default function MiniRepoPicker({ open, onOpenChange, droppedPaths, onConfirm }: Props) {
   const { data: models = [] } = useModels();
   const { data: datasets = [] } = useDatasets();
+  const { setJobs } = useUploadStore();
   const [search, setSearch] = useState('');
   const [selectedRepo, setSelectedRepo] = useState<RepoItem | null>(null);
   const [commitMessage, setCommitMessage] = useState('Add files via Face Hugger');
@@ -61,6 +63,10 @@ export default function MiniRepoPicker({ open, onOpenChange, droppedPaths, onCon
           commitMessage,
         });
       }
+      // Immediately refresh the job list so queue view updates without
+      // waiting for the next 500ms progress monitor fire (UPLD-07 fix)
+      const updatedJobs = await listUploads();
+      setJobs(updatedJobs);
       onConfirm(selectedRepo.id, selectedRepo.type);
       onOpenChange(false);
     } catch (err) {
