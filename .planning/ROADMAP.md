@@ -118,8 +118,10 @@ Plans:
   2. Drag-and-drop files immediately appear in the queue view without waiting for progress monitor
   3. All dead code removed (wizardRepoId, wrong invalidateQueries keys, unnecessary type casts)
   4. Documentation inconsistencies fixed (tray.rs comment)
+**Plans**: 2 plans
 Plans:
-- [ ] TBD (run /gsd:plan-phase 6 to break down)
+- [ ] 06-01-PLAN.md — Settings UI for concurrent upload limit control (UPLD-04)
+- [ ] 06-02-PLAN.md — Drag-drop queue refresh fix (UPLD-07) and tech debt cleanup
 
 ## Progress
 
@@ -133,4 +135,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | 3. Upload UI + Repo Management | 5/5 | Complete   | 2026-03-19 |
 | 4. Secondary Features + Distribution | 4/4 | Complete   | 2026-03-19 |
 | 5. E2E/UI Automated Testing | 5/5 | Complete   | 2026-03-20 |
-| 6. Polish & Tech Debt Cleanup | 0/0 | Pending   | — |
+| 6. Polish & Tech Debt Cleanup | 0/2 | Pending   | — |
