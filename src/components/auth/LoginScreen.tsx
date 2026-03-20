@@ -35,9 +35,9 @@ export default function LoginScreen() {
           // Token is now stored in keyring by Rust — retrieve it for the frontend store
           const token = await getStoredToken();
           if (token) {
-            setSuccessUser(userInfo as unknown as UserInfo);
+            setSuccessUser(userInfo);
             setTimeout(() => {
-              setAuth(token, userInfo as unknown as UserInfo);
+              setAuth(token, userInfo);
               setOauthStatus('idle');
             }, 1000);
           } else {
@@ -71,10 +71,10 @@ export default function LoginScreen() {
 
     try {
       const userInfo = await validateToken(tokenInput.trim());
-      setSuccessUser(userInfo as unknown as UserInfo);
+      setSuccessUser(userInfo);
 
       setTimeout(() => {
-        setAuth(tokenInput.trim(), userInfo as unknown as UserInfo);
+        setAuth(tokenInput.trim(), userInfo);
       }, 1000);
     } catch (err) {
       setTokenError(

@@ -55,8 +55,8 @@ pub fn setup_tray(app: &AppHandle) -> tauri::Result<()> {
                 }
             }
             "pause" => {
-                // Emit pause-all event to frontend. The frontend's upload
-                // monitoring hook listens for this and calls pause_all_uploads.
+                // Emit pause-all event. Handled by Rust listener in lib.rs setup
+                // (not frontend) so pausing works even when the window is hidden.
                 let _ = app.emit("tray-pause-all", ());
             }
             "quit" => {

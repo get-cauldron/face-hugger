@@ -15,7 +15,7 @@ function App() {
         if (token) {
           try {
             const userInfo = await validateToken(token);
-            setAuth(token, userInfo as any);
+            setAuth(token, userInfo);
           } catch {
             // Token exists but invalid — show login
           }

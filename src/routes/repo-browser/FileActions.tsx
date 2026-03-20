@@ -115,8 +115,6 @@ export function DeleteRepoDialog({
     try {
       await deleteRepoAction({ repoId, repoType });
       await queryClient.invalidateQueries({ queryKey: ['repos'] });
-      await queryClient.invalidateQueries({ queryKey: ['models'] });
-      await queryClient.invalidateQueries({ queryKey: ['datasets'] });
       onDeleted();
       onOpenChange(false);
     } catch (err) {

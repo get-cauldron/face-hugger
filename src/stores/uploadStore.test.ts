@@ -3,7 +3,7 @@ import { useUploadStore } from './uploadStore';
 
 describe('uploadStore', () => {
   beforeEach(() => {
-    useUploadStore.setState({ jobs: [], progressMap: {}, wizardOpen: false, wizardRepoId: null });
+    useUploadStore.setState({ jobs: [], progressMap: {}, wizardOpen: false });
   });
 
   it('setWizardOpen toggles wizard state', () => {
