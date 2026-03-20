@@ -1,8 +1,16 @@
+import { useState, useEffect } from 'react';
 import { useAuthStore } from '../../stores/authStore';
 import { logout } from '../../commands/auth';
+import { setConcurrentLimit } from '../../commands/upload';
+import { getPreference } from '../../lib/preferences';
 
 export default function SettingsPage() {
   const { user, clearAuth } = useAuthStore();
+  const [concurrentLimit, setConcurrentLimitState] = useState(2);
+
+  useEffect(() => {
+    getPreference<number>('concurrent_upload_limit', 2).then(setConcurrentLimitState);
+  }, []);
 
   const handleLogout = async () => {
     try {
@@ -11,6 +19,11 @@ export default function SettingsPage() {
       // Even if Rust-side logout fails, clear the JS auth state
     }
     clearAuth();
+  };
+
+  const handleLimitChange = async (newLimit: number) => {
+    setConcurrentLimitState(newLimit);
+    await setConcurrentLimit(newLimit);
   };
 
   return (
@@ -63,6 +76,36 @@ export default function SettingsPage() {
           <p className="text-sm text-muted-foreground">
             Light mode coming soon
           </p>
+        </div>
+      </section>
+
+      {/* Uploads section */}
+      <section className="mb-8">
+        <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider mb-3">
+          Uploads
+        </h2>
+        <div className="bg-card border border-border rounded-xl p-5">
+          <div>
+            <p className="text-sm font-medium text-foreground">Concurrent upload limit</p>
+            <p className="text-sm text-muted-foreground">
+              Maximum number of files uploading simultaneously (1-5)
+            </p>
+            <div className="flex gap-2 mt-3">
+              {[1, 2, 3, 4, 5].map((n) => (
+                <button
+                  key={n}
+                  onClick={() => handleLimitChange(n)}
+                  className={`w-9 h-9 rounded-md text-sm font-medium transition-colors ${
+                    concurrentLimit === n
+                      ? 'bg-primary text-primary-foreground'
+                      : 'bg-secondary text-foreground hover:bg-secondary/80'
+                  }`}
+                >
+                  {n}
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
