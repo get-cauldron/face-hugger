@@ -55,3 +55,31 @@ jobs:
 
       - name: Rust unit tests
         run: cargo test --manifest-path src-tauri/Cargo.toml
+
+      # tauri-driver native tests (Linux/Windows only -- no WKWebView driver on macOS)
+      - name: Install tauri-driver
+        if: matrix.platform != 'macos-latest'
+        run: cargo install tauri-driver --locked
+
+      - name: Build Tauri binary for native tests
+        if: matrix.platform != 'macos-latest'
+        run: npx tauri build --debug
+        env:
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+
+      - name: Install native test dependencies
+        if: matrix.platform != 'macos-latest'
+        run: npm ci --prefix tests/native
+
+      - name: Install webkit2gtk-driver (Ubuntu)
+        if: matrix.platform == 'ubuntu-22.04'
+        run: sudo apt-get install -y webkit2gtk-driver
+
+      - name: Native tests (Linux - headless via xvfb)
+        if: matrix.platform == 'ubuntu-22.04'
+        run: xvfb-run npm run test:native --prefix tests/native
+
+      - name: Native tests (Windows)
+        if: matrix.platform == 'windows-latest'
+        run: npm run test:native --prefix tests/native
