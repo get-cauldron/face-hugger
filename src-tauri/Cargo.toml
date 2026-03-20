@@ -21,7 +21,7 @@ tauri = { version = "2", features = ["tray-icon"] }
 tauri-specta = { version = "=2.0.0-rc.21", features = ["derive", "typescript"] }
 specta = "=2.0.0-rc.22"
 specta-typescript = "0.0.9"
-keyring = { version = "3", features = ["apple-native", "windows-native", "async-secret-service", "tokio"] }
+keyring = { version = "3", features = ["apple-native", "windows-native", "async-secret-service", "tokio", "crypto-rust"] }
 tokio = { version = "1", features = ["full"] }
 reqwest = { version = "0.12", features = ["json", "stream", "multipart"] }
 sqlx = { version = "0.8", features = ["sqlite", "runtime-tokio", "macros", "migrate"] }
