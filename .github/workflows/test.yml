@@ -58,9 +58,12 @@ jobs:
       - name: Rust unit tests
         run: cargo test --manifest-path src-tauri/Cargo.toml --lib
 
-      - name: Rust integration tests
+      - name: Rust integration tests (all platforms)
+        run: cargo test --manifest-path src-tauri/Cargo.toml --test helpers_test --test auth_test
+
+      - name: Rust integration tests (tauri mock — requires WebView2)
         if: matrix.platform != 'windows-latest'
-        run: cargo test --manifest-path src-tauri/Cargo.toml --test commands_test --test auth_test
+        run: cargo test --manifest-path src-tauri/Cargo.toml --test commands_test
 
       # tauri-driver native tests (Linux/Windows only — no WKWebView driver on macOS)
       # Skipped when TAURI_SIGNING_PRIVATE_KEY is not configured (required to build the binary)
