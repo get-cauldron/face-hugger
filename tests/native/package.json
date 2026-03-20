@@ -1,0 +1,14 @@
+{
+  "name": "face-hugger-native-tests",
+  "private": true,
+  "scripts": {
+    "test:native": "wdio run wdio.conf.js"
+  },
+  "devDependencies": {
+    "@wdio/cli": "^9",
+    "@wdio/local-runner": "^9",
+    "@wdio/mocha-framework": "^9",
+    "@wdio/spec-reporter": "^9",
+    "webdriverio": "^9"
+  }
+}
