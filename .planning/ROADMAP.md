@@ -17,7 +17,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 3: Upload UI + Repo Management** - Upload wizard, queue view, and full repository browser/CRUD (completed 2026-03-19)
 - [x] **Phase 4: Secondary Features + Distribution** - OAuth login, dataset preview, background uploads, signed distribution artifacts (completed 2026-03-19)
 - [x] **Phase 5: E2E/UI Automated Testing** - Comprehensive test coverage with Playwright, Vitest, tauri-driver, and CI gate (completed 2026-03-20)
-- [ ] **Phase 6: Polish & Tech Debt Cleanup** - Fix minor integration issues and clean up tech debt from audit
+- [x] **Phase 6: Polish & Tech Debt Cleanup** - Fix minor integration issues and clean up tech debt from audit (completed 2026-03-20)
 
 ## Phase Details
 
@@ -135,4 +135,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | 3. Upload UI + Repo Management | 5/5 | Complete   | 2026-03-19 |
 | 4. Secondary Features + Distribution | 4/4 | Complete   | 2026-03-19 |
 | 5. E2E/UI Automated Testing | 5/5 | Complete   | 2026-03-20 |
-| 6. Polish & Tech Debt Cleanup | 1/2 | In Progress|  |
+| 6. Polish & Tech Debt Cleanup | 2/2 | Complete   | 2026-03-20 |
